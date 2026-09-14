@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulado — Matemática 6º ano | Estação Meridiano</title>
+<style>
+:root{
+  --espaco:#0a1130; --espaco2:#111a45; --espaco3:#1b285f; --painel:#0e1738; --borda:#2b3d7a;
+  --ciano:#35e0d6; --ciano2:#8ff5ee; --ambar:#f4b53d; --ambar2:#ffd479;
+  --verde:#3fd08a; --verde2:#7be9b3; --vermelho:#ff6a5c; --texto:#e8ecff; --texto2:#aab4e6; --branco:#f6f8ff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--espaco);
+  background-image:radial-gradient(circle at 15% 12%,rgba(53,224,214,.10),transparent 42%),radial-gradient(circle at 85% 88%,rgba(255,106,92,.10),transparent 42%);
+  color:var(--texto);line-height:1.6;font-size:17px}
+body.bloqueado > *:not(#capa-relogio){filter:blur(7px);pointer-events:none;user-select:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 90px}
+header.topo{background:linear-gradient(135deg,#141d2e,#1b285f);border-bottom:4px solid var(--vermelho);padding:22px 18px;text-align:center}
+header.topo .selo{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#ffb3ab}
+header.topo h1{margin:6px 0 4px;font-size:27px;color:var(--branco)}
+header.topo p{margin:0;color:var(--texto2);font-size:14px}
+.barra-rel{position:sticky;top:0;z-index:50;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;background:rgba(10,17,48,.96);border-bottom:1px solid rgba(255,106,92,.35);padding:8px 14px;font-size:14px}
+.barra-rel #rel-tempo{color:var(--ambar2);font-weight:700}
+.barra-rel #rel-restante{color:var(--texto2);opacity:.9}
+#rel-aviso{display:none;width:100%;text-align:center;background:rgba(244,181,61,.2);border-radius:8px;padding:6px;margin-top:4px}
+nav.abas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 8px}
+nav.abas a{font-size:14px;text-decoration:none;padding:8px 14px;border-radius:999px;color:var(--texto2);border:1px solid rgba(53,224,214,.4);background:rgba(17,26,69,.7)}
+nav.abas a.ativo{background:var(--vermelho);color:#3a0a08;font-weight:700;border-color:var(--vermelho)}
+.aviso{background:rgba(244,181,61,.10);border:1px solid var(--ambar);border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15px}
+.q{background:linear-gradient(180deg,var(--painel),#0b1330);border:1px solid var(--borda);border-radius:12px;padding:16px 18px;margin:14px 0}
+.q .enun{font-weight:700;margin-bottom:10px}
+.q .val{color:var(--ambar2);font-weight:800;font-size:13px}
+.q .afirm{background:rgba(255,255,255,.05);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:15px}
+.alt{display:block;margin:7px 0;padding:9px 13px;border-radius:9px;background:#0e1738;border:1px solid var(--borda);cursor:pointer;font-size:15px}
+.alt:hover{background:#16205a}
+.alt.escolhida{border-color:var(--ambar);background:rgba(244,181,61,.14)}
+.alt .l{display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:#1b285f;color:var(--ciano2);font-weight:800;margin-right:8px}
+.q.corrigida .alt{pointer-events:none}
+.q.corrigida .alt.certa{background:rgba(63,208,138,.2);border-color:var(--verde)}
+.q.corrigida .alt.certa .l{background:var(--verde);color:#052a1c}
+.q.corrigida .alt.errada{background:rgba(255,106,92,.16);border-color:var(--vermelho)}
+.q.corrigida .alt.errada .l{background:var(--vermelho);color:#3a0a08}
+.q .exp{display:none;margin-top:8px;font-size:14px;background:rgba(255,255,255,.05);border:1px solid var(--borda);border-radius:8px;padding:9px 12px}
+.q.corrigida .exp{display:block}
+.q .exp b{color:var(--ciano2)}
+.btn{font-size:15px;padding:11px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn-fim{background:var(--vermelho);color:#3a0a08}
+.btn-1{background:var(--ciano);color:#062a28}.btn-2{background:transparent;color:var(--texto2);border:1px solid rgba(53,224,214,.5)}
+.btn-grande{font-size:19px;padding:14px 30px}
+.painel-fim{text-align:center;background:linear-gradient(160deg,var(--espaco2),var(--espaco3));border:2px solid var(--ambar);border-radius:16px;padding:24px;margin:20px 0}
+.codigo{font-family:"Consolas",monospace;font-size:30px;letter-spacing:3px;color:var(--ambar2);background:#05122b;border-radius:10px;padding:10px 18px;display:inline-block;margin:12px 0}
+.painel{background:rgba(17,26,69,.85);border:1px solid var(--borda);border-radius:12px;padding:14px;margin:22px 0;font-size:14px;text-align:center}
+.painel .linha{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.painel textarea{width:100%;min-height:110px;margin-top:10px;border-radius:8px;border:2px solid var(--borda);background:#f6f8ff;color:#111a2e;padding:10px}
+.capa-relogio{position:fixed;inset:0;z-index:200;background:rgba(10,17,48,.98);display:flex;align-items:center;justify-content:center;padding:20px}
+.capa-cx{max-width:520px;text-align:center;background:linear-gradient(160deg,var(--espaco2),var(--espaco3));border:2px solid var(--vermelho);border-radius:18px;padding:34px 26px}
+.capa-icone{font-size:54px}.capa-cx h2{color:#ffb3ab;margin:8px 0 12px}.capa-cx p{color:var(--texto2)}
+.modal-bg{position:fixed;inset:0;background:rgba(4,8,22,.85);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px}
+.modal-cx{max-width:520px;width:100%;background:linear-gradient(160deg,var(--espaco2),var(--espaco3));border:2px solid var(--ciano);border-radius:16px;padding:24px}
+.modal-cx h3{margin:0 0 10px;color:var(--ciano2)}.modal-corpo{color:var(--texto2)}
+.modal-pe{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+.pausa-relogio{font-size:34px;text-align:center;color:var(--ambar2);font-family:"Courier New",monospace}
+.proximo{text-align:center;margin:26px 0}
+.proximo a{display:inline-block;background:var(--verde);color:#052a1c;text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:800}
+.centro{text-align:center}.pequeno{font-size:14px}.oculto{display:none}
+@media(max-width:520px){body{font-size:16px}header.topo h1{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="selo">Colégio São José · Rede Divina Providência · Matemática 6º ano</div>
+  <h1>📝 Simulado — Estação Meridiano</h1>
+  <p>29 questões · MMC/MDC e medidas · prova de 18/09</p>
+</header>
+<div class="barra-rel">
+  <span id="rel-tempo">⏱️ 0min 00s</span>
+  <span id="rel-restante">parado</span>
+  <button class="btn btn-2" id="btn-terminar" style="padding:4px 12px;font-size:13px">⏹ Terminar agora</button>
+  <div id="rel-aviso"></div>
+</div>
+<div class="wrap">
+  <nav class="abas">
+    <a href="index.html">🏠 Início</a>
+    <a href="leitura-estendida.html">📖 Leitura</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a class="ativo" href="simulado.html">📝 Simulado</a>
+  </nav>
+  <div class="aviso">✍️ Responda as 29 questões e clique em <b>Finalizar simulado</b>. Você recebe um <b>código SIM-XX-YY</b> (XX = acertos) para mostrar aos pais, e o <b>gabarito comentado</b> abre em seguida.</div>
+
+  <div id="questoes"></div>
+
+  <div class="centro">
+    <button class="btn btn-fim btn-grande" id="btn-finalizar" onclick="finalizar(false)">✅ Finalizar simulado</button>
+  </div>
+
+  <div id="resultado" class="painel-fim oculto"></div>
+
+  <div class="proximo"><a href="index.html">🏠 Voltar ao início</a></div>
+
+  <div class="painel">
+    <div>💾 Salvamento automático — <span id="salvo-quando">ainda não salvo</span></div>
+    <div class="linha">
+      <button class="btn btn-2" onclick="exportarTudo()">📥 Exportar</button>
+      <button class="btn btn-2" onclick="importarTudo()">📤 Importar</button>
+      <button class="btn btn-2" onclick="zerarTudo()">🗑️ Zerar tudo</button>
+    </div>
+    <div id="caixa-export" style="display:none"><p class="pequeno">Copie e guarde:</p><textarea readonly></textarea></div>
+    <div id="caixa-import" style="display:none"><p class="pequeno">Cole o backup:</p><textarea id="area-import"></textarea><button class="btn btn-1" onclick="confirmarImport()">Restaurar</button></div>
+  </div>
+</div>
+
+<script>
+var MEM={};
+var Store={get:function(k){try{var v=localStorage.getItem(k);return v===null?(MEM[k]===undefined?null:MEM[k]):v;}catch(e){return MEM[k]===undefined?null:MEM[k];}},set:function(k,v){MEM[k]=v;try{localStorage.setItem(k,v);}catch(e){}},del:function(k){delete MEM[k];try{localStorage.removeItem(k);}catch(e){}},getJSON:function(k,def){var v=this.get(k);if(!v)return def;try{return JSON.parse(v);}catch(e){return def;}},setJSON:function(k,o){this.set(k,JSON.stringify(o));}};
+function modal(t,c,bs){var v=document.getElementById('modal-bg');if(v)v.remove();var bg=document.createElement('div');bg.id='modal-bg';bg.className='modal-bg';var cx=document.createElement('div');cx.className='modal-cx';cx.innerHTML='<h3>'+t+'</h3><div class="modal-corpo">'+c+'</div>';var pe=document.createElement('div');pe.className='modal-pe';(bs||[{texto:'Fechar'}]).forEach(function(b){var bt=document.createElement('button');bt.className='btn '+(b.classe||'btn-2');bt.textContent=b.texto;bt.onclick=function(){bg.remove();if(b.acao)b.acao();};pe.appendChild(bt);});cx.appendChild(pe);bg.appendChild(cx);document.body.appendChild(bg);}
+var RELOGIO=(function(){var KEY='',MIN_SESSAO=45,INAT=180000,PAUSA=300000;var d={totalMs:0,ativoMs:0,sessoes:[],extra:{}};var sessaoMs=0,rodando=false,travado=false,ultimaAtiv=Date.now(),pausadoInat=false;var elTempo,elAviso,timer,fimPausa=0,inicioSessao=null;
+function fmt(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60),h=Math.floor(m/60);m=m%60;s=s%60;return (h>0?h+'h ':'')+m+'min '+(s<10?'0':'')+s+'s';}
+function salvar(){d.extra=d.extra||{};Store.setJSON(KEY+'_tempo',d);}
+function pintar(){if(!elTempo)return;elTempo.textContent='⏱️ '+fmt(d.ativoMs);var r=MIN_SESSAO*60000-sessaoMs;var e=document.getElementById('rel-restante');if(e)e.textContent=travado?'pausa obrigatória':(rodando?'faltam '+Math.max(0,Math.ceil(r/60000))+' min nesta sessão':'parado');}
+function marcarAtividade(){ultimaAtiv=Date.now();if(pausadoInat){pausadoInat=false;if(elAviso)elAviso.style.display='none';}}
+function tick(){if(!rodando)return;var agora=Date.now();if(travado){var f=fimPausa-agora;if(f<=0){destravar();}else{var mm=Math.floor(f/60000),ss=Math.floor((f%60000)/1000);var el=document.getElementById('pausa-contagem');if(el)el.textContent=mm+':'+(ss<10?'0':'')+ss;}return;}d.totalMs+=1000;if(agora-ultimaAtiv<INAT){d.ativoMs+=1000;sessaoMs+=1000;}else if(!pausadoInat){pausadoInat=true;if(elAviso){elAviso.innerHTML='😴 <b>Estudo pausado</b> — toque na tela para continuar.';elAviso.style.display='block';}}if(sessaoMs>=MIN_SESSAO*60000)travar();if(d.totalMs%10000===0)salvar();pintar();}
+function travar(){travado=true;sessaoMs=0;fimPausa=Date.now()+PAUSA;var bg=document.createElement('div');bg.id='pausa-bg';bg.className='modal-bg';bg.innerHTML='<div class="modal-cx"><h3>🛰️ Hora de recarregar!</h3><div class="modal-corpo"><p>Você estudou <b>'+MIN_SESSAO+' minutos</b> seguidos. Pausa obrigatória de 5 minutos.</p><p>Levante, beba água. A estação volta sozinha.</p><p class="pausa-relogio">⏳ <span id="pausa-contagem">5:00</span></p></div></div>';document.body.appendChild(bg);salvar();}
+function destravar(){travado=false;var bg=document.getElementById('pausa-bg');if(bg)bg.remove();marcarAtividade();}
+function comecar(){var c=document.getElementById('capa-relogio');if(c)c.remove();document.body.classList.remove('bloqueado');rodando=true;inicioSessao=new Date().toISOString();marcarAtividade();if(!timer)timer=setInterval(tick,1000);pintar();}
+function terminar(cb){modal('⏹ Terminar agora?','<p>Isso <b>fecha a tentativa como está</b>, mesmo com questões em branco, e gera o código com os acertos do que você respondeu.</p>',[{texto:'Continuar',classe:'btn-2'},{texto:'Sim, terminar',classe:'btn-1',acao:function(){rodando=false;if(inicioSessao){d.sessoes.push({inicio:inicioSessao,fim:new Date().toISOString()});inicioSessao=null;}salvar();pintar();if(cb)cb();}}]);}
+return{init:function(o){KEY=o.key;MIN_SESSAO=o.minutos||45;d=Store.getJSON(KEY+'_tempo',{totalMs:0,ativoMs:0,sessoes:[],extra:{}});d.sessoes=d.sessoes||[];d.extra=d.extra||{};elTempo=document.getElementById('rel-tempo');elAviso=document.getElementById('rel-aviso');document.body.classList.add('bloqueado');var capa=document.createElement('div');capa.id='capa-relogio';capa.className='capa-relogio';capa.innerHTML='<div class="capa-cx"><div class="capa-icone">⏱️</div><h2>'+(o.titulo||'Pronto?')+'</h2><p>O relógio conta o tempo real de estudo. A sessão dura <b>'+MIN_SESSAO+' min</b>, depois uma pausa de 5 min.</p><button class="btn btn-1 btn-grande" id="btn-comecar">🛰️ Começar o simulado</button></div>';document.body.appendChild(capa);document.getElementById('btn-comecar').onclick=comecar;['click','keydown','scroll','touchstart','input'].forEach(function(ev){document.addEventListener(ev,marcarAtividade,true);});window.addEventListener('beforeunload',function(){if(inicioSessao)d.sessoes.push({inicio:inicioSessao,fim:new Date().toISOString()});salvar();});pintar();var bt=document.getElementById('btn-terminar');if(bt)bt.onclick=function(){terminar(o.aoTerminar);};},extra:function(obj){d.extra=Object.assign(d.extra||{},obj);salvar();},dados:function(){return d;},zerar:function(){d={totalMs:0,ativoMs:0,sessoes:[],extra:{}};sessaoMs=0;salvar();pintar();},_debug:function(o){if(o&&o.restante!==undefined)sessaoMs=MIN_SESSAO*60000-o.restante*1000;if(o&&o.inat!==undefined)ultimaAtiv=Date.now()-o.inat*1000;if(o&&o.pausa!==undefined)fimPausa=Date.now()+o.pausa*1000;}};})();
+function painelSalvar(KEY,coletar,aoZerar){function carimbo(){var q=Store.get(KEY+'_quando');var el=document.getElementById('salvo-quando');if(el)el.textContent=q?'último salvamento: '+q:'ainda não salvo';}window.salvarAgora=function(){Store.setJSON(KEY,coletar());Store.set(KEY+'_quando',new Date().toLocaleString('pt-BR'));carimbo();};window.exportarTudo=function(){var p={chave:KEY,dados:Store.getJSON(KEY,{}),tempo:Store.getJSON(KEY+'_tempo',{}),quando:Store.get(KEY+'_quando')};var cx=document.getElementById('caixa-export');cx.style.display='block';cx.querySelector('textarea').value=JSON.stringify(p,null,2);cx.querySelector('textarea').select();};window.importarTudo=function(){document.getElementById('caixa-import').style.display='block';};window.confirmarImport=function(){var txt=document.getElementById('area-import').value;try{var p=JSON.parse(txt);if(p.dados)Store.setJSON(KEY,p.dados);if(p.tempo)Store.setJSON(KEY+'_tempo',p.tempo);if(p.quando)Store.set(KEY+'_quando',p.quando);modal('✅ Importado','<p>A página vai recarregar.</p>',[{texto:'Ok',classe:'btn-1',acao:function(){location.reload();}}]);}catch(e){modal('❌ Não deu','<p>Backup inválido.</p>',[{texto:'Ok',classe:'btn-1'}]);}};window.zerarTudo=function(){modal('🗑️ Zerar tudo?','<p>Apaga as respostas, o código e o tempo deste simulado.</p>',[{texto:'Cancelar',classe:'btn-2'},{texto:'Sim, apagar',classe:'btn-1',acao:function(){Store.del(KEY);Store.del(KEY+'_quando');Store.del(KEY+'_tempo');if(aoZerar)aoZerar();location.reload();}}]);};carimbo();}
+
+var QUESTOES=[
+ {enun:"O MDC de 16 e 24 é:",alts:["8","4","48","2"],correta:0,exp:"16=2·2·2·2 e 24=2·2·2·3. Fatores comuns: três 2 → 2·2·2 = 8."},
+ {enun:"O MMC de 10 e 15 é:",alts:["30","5","150","60"],correta:0,exp:"10=2·5 e 15=3·5. Todos os fatores: 2·3·5 = 30."},
+ {enun:"Há 30 lápis e 42 canetas para montar kits iguais, sem sobrar. O maior número de kits é o MDC de 30 e 42, que vale:",alts:["6","12","210","3"],correta:0,exp:"30=2·3·5 e 42=2·3·7. Comuns: 2·3 = 6 kits."},
+ {enun:"Dois ciclistas partem juntos: um dá uma volta em 8 min e o outro em 12 min. Eles se encontram de novo no ponto de partida depois de:",alts:["24 min","4 min","96 min","20 min"],correta:0,exp:"É o MMC(8,12). 8=2³, 12=2²·3 → 2³·3 = 24 min."},
+ {enun:"O MDC de 9 e 27 é:",alts:["9","3","27","1"],correta:0,exp:"27 = 3·9, então 9 divide os dois. MDC = 9."},
+ {enun:"O MMC de 4, 5 e 10 é:",alts:["20","40","10","100"],correta:0,exp:"4=2², 5=5, 10=2·5 → 2²·5 = 20."},
+ {enun:"7 metros equivalem a quantos centímetros?",alts:["700 cm","70 cm","7000 cm","7 cm"],correta:0,exp:"Do m ao cm são 2 degraus à direita = ×100 → 700 cm."},
+ {enun:"3,5 km valem, em metros:",alts:["3500 m","350 m","35000 m","35 m"],correta:0,exp:"Do km ao m são 3 degraus = ×1000 → 3,5×1000 = 3500 m."},
+ {enun:"4200 mm em metros é:",alts:["4,2 m","42 m","0,42 m","420 m"],correta:0,exp:"Do mm ao m são 3 degraus à esquerda = ÷1000 → 4,2 m."},
+ {enun:"O perímetro de um quadrado de lado 9 cm é:",alts:["36 cm","18 cm","81 cm","45 cm"],correta:0,exp:"Perímetro do quadrado = 4×lado = 4×9 = 36 cm."},
+ {enun:"Um retângulo tem 10 cm por 6 cm. Seu perímetro é:",alts:["32 cm","60 cm","16 cm","26 cm"],correta:0,exp:"2×10 + 2×6 = 20+12 = 32 cm."},
+ {enun:"Um triângulo tem lados 7 cm, 8 cm e 10 cm. Seu perímetro é:",alts:["25 cm","24 cm","56 cm","17 cm"],correta:0,exp:"Some os lados: 7+8+10 = 25 cm."},
+ {enun:"A área de um quadrado de lado 5 m é:",alts:["25 m²","20 m²","10 m²","25 cm²"],correta:0,exp:"Área = lado×lado = 5×5 = 25 m²."},
+ {enun:"2 m² equivalem a quantos cm²?",alts:["20000 cm²","200 cm²","2000 cm²","2 cm²"],correta:0,exp:"Área anda de 100 em 100; do m² ao cm² são 2 degraus = ×10000 → 20000 cm²."},
+ {enun:"A área de um retângulo de 12 m por 3 m é:",alts:["36 m²","30 m²","15 m²","45 m²"],correta:0,exp:"Área = base×altura = 12×3 = 36 m²."},
+ {enun:"O volume de um cubo de aresta 3 cm é:",alts:["27 cm³","9 cm³","18 cm³","12 cm³"],correta:0,exp:"Cubo = aresta×aresta×aresta = 3×3×3 = 27 cm³."},
+ {enun:"2 m³ equivalem a quantos dm³?",alts:["2000 dm³","20 dm³","200 dm³","20000 dm³"],correta:0,exp:"Volume anda de 1000 em 1000; m³→dm³ = ×1000 → 2000 dm³."},
+ {enun:"O volume de uma caixa de 2 cm × 3 cm × 4 cm é:",alts:["24 cm³","9 cm³","14 cm³","20 cm³"],correta:0,exp:"Volume = 2×3×4 = 24 cm³."},
+ {enun:"5 litros equivalem a quantos mililitros?",alts:["5000 mL","500 mL","50 mL","50000 mL"],correta:0,exp:"L→mL são 3 degraus = ×1000 → 5000 mL."},
+ {enun:"1 litro é o mesmo que:",alts:["1 dm³","1 cm³","1 m³","1 mL"],correta:0,exp:"1 L = 1 dm³ (e 1 mL = 1 cm³)."},
+ {enun:"750 mL em litros é:",alts:["0,75 L","7,5 L","75 L","0,075 L"],correta:0,exp:"mL→L = ÷1000 → 750÷1000 = 0,75 L."},
+ {enun:"3 kg equivalem a quantos gramas?",alts:["3000 g","300 g","30 g","30000 g"],correta:0,exp:"kg→g são 3 degraus = ×1000 → 3000 g."},
+ {enun:"1 tonelada é igual a:",alts:["1000 kg","100 kg","10 kg","10000 kg"],correta:0,exp:"1 t = 1000 kg."},
+ {enun:"4500 g em quilogramas é:",alts:["4,5 kg","45 kg","450 kg","0,45 kg"],correta:0,exp:"g→kg = ÷1000 → 4500÷1000 = 4,5 kg."},
+ {enun:"Na escala Celsius, a água congela a:",alts:["0 °C","100 °C","10 °C","−10 °C"],correta:0,exp:"A água congela a 0 °C e ferve a 100 °C."},
+ {enun:"A temperatura passou de 14 °C para 23 °C. A variação foi de:",alts:["9 °C","37 °C","8 °C","7 °C"],correta:0,exp:"Variação = final − inicial = 23 − 14 = 9 °C."},
+ {tipoRomano:true,enun:"Analise as afirmativas sobre transformação de unidades:",afirmativas:["1 km = 1000 m","1 m² = 100 cm²","1 L = 1000 mL","1 kg = 100 g"],alts:["Apenas I e III estão corretas","Apenas II e IV estão corretas","Apenas I e II estão corretas","I, II, III e IV estão corretas"],correta:0,exp:"I (V) e III (V) estão certas. II é falsa (1 m² = 10 000 cm²) e IV é falsa (1 kg = 1000 g)."},
+ {tipoRomano:true,enun:"Analise as afirmativas sobre MMC e MDC:",afirmativas:["MDC é o maior divisor comum","MMC é o maior múltiplo comum","MMC(4, 6) = 12","MDC(12, 18) = 6"],alts:["Apenas I, III e IV estão corretas","Apenas I e II estão corretas","Apenas II e III estão corretas","Todas estão corretas"],correta:0,exp:"II é falsa: MMC é o MENOR múltiplo comum. I, III e IV estão corretas."},
+ {tipoRomano:true,enun:"Analise as afirmativas sobre as escadas das medidas:",afirmativas:["O comprimento anda de 10 em 10","A área anda de 100 em 100","O volume anda de 10 em 10","A capacidade anda de 10 em 10"],alts:["Apenas I, II e IV estão corretas","Apenas III está correta","Apenas I e II estão corretas","Todas estão corretas"],correta:0,exp:"III é falsa: o volume anda de 1000 em 1000. As demais estão corretas."}
+];
+
+var CHAVE='kit_mat6_sj_grandezas_simulado_v1';
+var ROMANOS=['I','II','III','IV','V'];
+function seedRand(seed){var s=seed%2147483647;if(s<=0)s+=2147483646;return function(){s=s*16807%2147483647;return (s-1)/2147483646;};}
+function ordemEmbaralhada(qi,n){var r=seedRand(qi*97+13);var arr=[];for(var i=0;i<n;i++)arr.push(i);for(var i=n-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
+
+var estado=Store.getJSON(CHAVE,null)||{sel:QUESTOES.map(function(){return -1;}),finalizado:false,codigo:null,acertos:null};
+
+function render(){
+  var cont=document.getElementById('questoes');cont.innerHTML='';
+  QUESTOES.forEach(function(q,qi){
+    q._ordem=ordemEmbaralhada(qi,q.alts.length);
+    var afirmHTML='';
+    if(q.tipoRomano){afirmHTML=q.afirmativas.map(function(a,ai){return '<div class="afirm"><b>'+ROMANOS[ai]+'.</b> '+a+'</div>';}).join('');}
+    var altsHTML=q._ordem.map(function(origIdx,pos){
+      return '<span class="alt" id="alt_'+qi+'_'+origIdx+'" onclick="selecionar('+qi+','+origIdx+')"><span class="l">'+'ABCDE'[pos]+'</span>'+q.alts[origIdx]+'</span>';
+    }).join('');
+    var div=document.createElement('div');div.className='q';div.id='q_'+qi;
+    div.innerHTML='<div class="enun"><span class="val">('+(qi+1)+') (0,5)</span> '+q.enun+'</div>'+afirmHTML+altsHTML+'<div class="exp"><b>💡 Correta: </b><span id="expc_'+qi+'"></span> — '+q.exp+'</div>';
+    cont.appendChild(div);
+  });
+  QUESTOES.forEach(function(q,qi){var s=estado.sel[qi];if(s>=0){var el=document.getElementById('alt_'+qi+'_'+s);if(el)el.classList.add('escolhida');}});
+  if(estado.finalizado)mostrarGabarito();
+}
+function selecionar(qi,origIdx){
+  if(estado.finalizado)return;
+  QUESTOES[qi].alts.forEach(function(_,k){var el=document.getElementById('alt_'+qi+'_'+k);if(el)el.classList.remove('escolhida');});
+  document.getElementById('alt_'+qi+'_'+origIdx).classList.add('escolhida');
+  estado.sel[qi]=origIdx;salvar();
+}
+function salvar(){Store.setJSON(CHAVE,estado);Store.set(CHAVE+'_quando',new Date().toLocaleString('pt-BR'));var el=document.getElementById('salvo-quando');if(el)el.textContent='último salvamento: '+Store.get(CHAVE+'_quando');}
+function letrasCodigo(){var L='ABCDEFGHJKLMNPQRSTUVWXYZ';return L[Math.floor(Math.random()*L.length)]+L[Math.floor(Math.random()*L.length)];}
+function finalizar(forcado){
+  if(!forcado){
+    var faltam=estado.sel.filter(function(s){return s<0;}).length;
+    if(faltam>0){modal('Ainda faltam questões','<p>Faltam <b>'+faltam+'</b> questões. Quer finalizar assim mesmo? As em branco contam como erradas.</p>',[{texto:'Voltar',classe:'btn-2'},{texto:'Finalizar assim',classe:'btn-1',acao:function(){fecharSimulado();}}]);return;}
+  }
+  fecharSimulado();
+}
+function fecharSimulado(){
+  var acertos=0;QUESTOES.forEach(function(q,qi){if(estado.sel[qi]===q.correta)acertos++;});
+  estado.acertos=acertos;estado.finalizado=true;
+  if(!estado.codigo){var xx=(acertos<10?'0':'')+acertos;estado.codigo='SIM-'+xx+'-'+letrasCodigo();}
+  RELOGIO.extra({acertos:acertos,total:QUESTOES.length,codigo:estado.codigo});
+  salvar();
+  document.getElementById('btn-finalizar').style.display='none';
+  var r=document.getElementById('resultado');r.classList.remove('oculto');
+  r.innerHTML='<h2 style="color:var(--ambar2);margin:0 0 6px">Simulado encerrado!</h2>'+
+    '<p>Você acertou <b>'+acertos+'</b> de <b>'+QUESTOES.length+'</b>.</p>'+
+    '<p class="pequeno">Mostre este código para os seus pais (ele guarda a sua nota):</p>'+
+    '<div class="codigo">'+estado.codigo+'</div>'+
+    '<p class="pequeno">O gabarito comentado abriu abaixo. Confira cada questão. 💡</p>';
+  mostrarGabarito();
+  r.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function mostrarGabarito(){
+  QUESTOES.forEach(function(q,qi){
+    var div=document.getElementById('q_'+qi);if(!div)return;
+    div.classList.add('corrigida');
+    var sel=estado.sel[qi];
+    q.alts.forEach(function(_,k){var el=document.getElementById('alt_'+qi+'_'+k);if(!el)return;if(k===q.correta)el.classList.add('certa');if(k===sel&&sel!==q.correta)el.classList.add('errada');});
+    var ec=document.getElementById('expc_'+qi);if(ec)ec.textContent=q.alts[q.correta];
+  });
+}
+
+RELOGIO.init({key:CHAVE,minutos:45,titulo:"Pronto para o simulado, cadete?",aoTerminar:function(){finalizar(true);}});
+painelSalvar(CHAVE,function(){return estado;},function(){});
+render();
+</script>
+</body>
+</html>
