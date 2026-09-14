@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit de Estudos — Matemática 6º ano | Estação Meridiano</title>
+<style>
+:root{
+  --espaco:#0a1130; --espaco2:#111a45; --espaco3:#1b285f; --painel:#0e1738; --borda:#2b3d7a;
+  --ciano:#35e0d6; --ciano2:#8ff5ee; --ambar:#f4b53d; --ambar2:#ffd479;
+  --verde:#3fd08a; --verde2:#7be9b3; --vermelho:#ff6a5c; --texto:#e8ecff; --texto2:#aab4e6; --branco:#f6f8ff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--espaco);
+  background-image:radial-gradient(circle at 15% 12%,rgba(53,224,214,.12),transparent 42%),radial-gradient(circle at 85% 88%,rgba(244,181,61,.10),transparent 42%),radial-gradient(circle at 60% 40%,rgba(255,107,157,.06),transparent 50%);
+  color:var(--texto);line-height:1.6;font-size:17px}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 90px}
+header.topo{background:linear-gradient(135deg,var(--espaco2),var(--espaco3));border-bottom:4px solid var(--ciano);padding:34px 18px 26px;text-align:center}
+header.topo .selo{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ciano2)}
+header.topo h1{margin:8px 0 4px;font-size:32px;color:var(--branco)}
+header.topo p{margin:2px 0;color:var(--texto2);font-size:15px}
+.materiais{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0}
+.mat-card{display:block;text-decoration:none;background:linear-gradient(180deg,var(--painel),#0b1330);border:1px solid var(--borda);border-radius:16px;padding:20px;color:var(--texto);transition:.2s;position:relative}
+.mat-card:hover{border-color:var(--ciano);transform:translateY(-3px)}
+.mat-card .n{position:absolute;top:14px;right:16px;font-size:13px;color:var(--texto2)}
+.mat-card .ic{font-size:40px}
+.mat-card h2{margin:8px 0 4px;font-size:20px;color:var(--ciano2)}
+.mat-card p{margin:0;font-size:14px;color:var(--texto2)}
+.carta{background:linear-gradient(180deg,var(--painel),#0b1330);border:1px solid var(--borda);border-radius:14px;padding:20px 22px;margin:18px 0}
+.carta h2{margin:0 0 10px;color:var(--ambar2);font-size:22px}
+.carta ol{padding-left:20px}.carta ol li{margin:8px 0}
+.carta b{color:var(--ciano2)}
+.dica{background:#ffe98a;color:#3a2b06;border-left:7px solid #e0a800;padding:12px 16px;border-radius:8px;margin:12px 0}
+.dica::before{content:"💡 Para a mãe/pai: ";font-weight:800}
+.pais{background:linear-gradient(160deg,#141d2e,#1b285f);border:2px solid var(--ambar);border-radius:16px;padding:22px;margin:24px 0}
+.pais h2{color:var(--ambar2);margin:0 0 8px}
+.pais input{padding:10px 14px;border-radius:10px;border:2px solid var(--borda);background:#f6f8ff;color:#111a2e;font-size:16px;width:180px;letter-spacing:2px;text-transform:uppercase}
+.btn{font-size:15px;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700;background:var(--ciano);color:#062a28}
+#rel-pais{display:none;margin-top:16px}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:14px}
+th,td{border:1px solid var(--borda);padding:8px 10px;text-align:center}
+th{background:var(--espaco3);color:var(--ciano2)}
+td.esq{text-align:left}
+.pequeno{font-size:13px;color:var(--texto2)}
+.rodape{text-align:center;color:var(--texto2);font-size:13px;margin-top:30px}
+@media(max-width:520px){body{font-size:16px}header.topo h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="selo">🛰️ Estação Meridiano</div>
+  <h1>Kit de Estudos — Matemática 6º ano</h1>
+  <p>Colégio São José · Módulo 2 · prova de 18/09</p>
+  <p>MMC e MDC · Comprimento · Perímetro · Área · Volume · Capacidade · Massa · Temperatura</p>
+</header>
+<div class="wrap">
+
+  <div class="materiais">
+    <a class="mat-card" href="leitura-estendida.html"><span class="n">1º</span><div class="ic">📖</div><h2>Leitura Estendida</h2><p>Aprenda cada assunto e treine escrevendo.</p></a>
+    <a class="mat-card" href="resumo.html"><span class="n">2º</span><div class="ic">🗺️</div><h2>Resumo</h2><p>Tudo em cartões rápidos para revisar.</p></a>
+    <a class="mat-card" href="simulado.html"><span class="n">3º</span><div class="ic">📝</div><h2>Simulado</h2><p>29 questões no estilo da prova, com gabarito.</p></a>
+  </div>
+
+  <div class="carta">
+    <h2>Como usar este material</h2>
+    <ol>
+      <li><b>📖 Leitura Estendida</b> — comece por aqui. Leia cada setor, faça os testes e escreva as respostas.</li>
+      <li><b>🗺️ Resumo</b> — depois da leitura, revise tudo rápido nos cartões.</li>
+      <li><b>📝 Simulado</b> — por último, teste-se valendo, como se fosse a prova.</li>
+    </ol>
+    <p class="pequeno">O relógio de estudo (45 minutos por sessão) aparece em cada material e pede uma pausa quando a sessão termina.</p>
+    <div class="dica">o simulado gera um <b>código SIM-XX-YY</b> (XX é o número de acertos). Peça esse código ao seu filho e digite no <b>Relatório para os pais</b> abaixo — ou use o código fixo da família <b>PAIS-77</b> para ver tudo.</div>
+  </div>
+
+  <div class="pais">
+    <h2>📊 Relatório para os pais</h2>
+    <p class="pequeno">Digite o código <b>PAIS-77</b> (ou o código SIM do simulado) para ver o tempo de estudo e os acertos.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="cod-pais" placeholder="PAIS-77" maxlength="10">
+      <button class="btn" onclick="abrirRelatorio()">Ver relatório</button>
+    </div>
+    <div id="rel-pais"></div>
+  </div>
+
+  <div class="rodape">Feito com carinho para os estudos · Estação Meridiano 🛰️</div>
+</div>
+
+<script>
+var MEM={};
+var Store={get:function(k){try{var v=localStorage.getItem(k);return v===null?(MEM[k]===undefined?null:MEM[k]):v;}catch(e){return MEM[k]===undefined?null:MEM[k];}},getJSON:function(k,def){var v=this.get(k);if(!v)return def;try{return JSON.parse(v);}catch(e){return def;}}};
+function fmt(ms){ms=ms||0;var s=Math.floor(ms/1000),m=Math.floor(s/60),h=Math.floor(m/60);m=m%60;return (h>0?h+'h ':'')+m+'min';}
+var MATS=[
+ {nome:"📖 Leitura Estendida",key:"kit_mat6_sj_grandezas_leitura_v1_tempo"},
+ {nome:"🗺️ Resumo",key:"kit_mat6_sj_grandezas_resumo_v1_tempo"},
+ {nome:"📝 Simulado",key:"kit_mat6_sj_grandezas_simulado_v1_tempo"}
+];
+function abrirRelatorio(){
+  var cod=(document.getElementById('cod-pais').value||'').trim().toUpperCase();
+  var simTempo=Store.getJSON(MATS[2].key,{});
+  var codSim=(simTempo.extra&&simTempo.extra.codigo)?simTempo.extra.codigo.toUpperCase():null;
+  if(cod!=='PAIS-77' && !(codSim && cod===codSim)){
+    document.getElementById('rel-pais').style.display='block';
+    document.getElementById('rel-pais').innerHTML='<p style="color:var(--vermelho)">Código não confere. Use <b>PAIS-77</b> ou o código SIM do simulado.</p>';
+    return;
+  }
+  var linhas=MATS.map(function(m){
+    var t=Store.getJSON(m.key,{});var ex=t.extra||{};
+    var extraTxt='—';
+    if(m.key.indexOf('leitura')>=0){
+      var partes=[];
+      if(ex.vermelhas!==undefined)partes.push(ex.vermelhas+' resposta(s) marcada(s) para reescrever');
+      if(ex.checklist_nao!==undefined)partes.push(ex.checklist_nao+' ponto(s) "não" no checklist');
+      extraTxt=partes.length?partes.join('; '):'sem marcações';
+    } else if(m.key.indexOf('resumo')>=0){
+      extraTxt=(ex.rolagem!==undefined?ex.rolagem+'% do resumo lido':'—');
+    } else if(m.key.indexOf('simulado')>=0){
+      extraTxt=(ex.acertos!==undefined?ex.acertos+' de '+(ex.total||29)+' acertos · código '+(ex.codigo||'—'):'ainda não finalizado');
+    }
+    var ref=m.key.indexOf('leitura')>=0?'<br><span class="pequeno">referência: cerca de 1h</span>':'';
+    return '<tr><td class="esq">'+m.nome+'</td><td>'+fmt(t.totalMs)+'</td><td>'+fmt(t.ativoMs)+ref+'</td><td class="esq">'+extraTxt+'</td></tr>';
+  }).join('');
+  var el=document.getElementById('rel-pais');el.style.display='block';
+  el.innerHTML='<table><thead><tr><th>Material</th><th>Tempo total</th><th>Tempo ativo</th><th>Resultados</th></tr></thead><tbody>'+linhas+'</tbody></table>'+
+    '<p class="pequeno">"Tempo ativo" é quanto a criança realmente ficou estudando (sem as pausas). Os dados ficam só neste computador.</p>';
+}
+</script>
+</body>
+</html>
