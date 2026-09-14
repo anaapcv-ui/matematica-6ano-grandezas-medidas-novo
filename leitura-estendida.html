@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leitura Estendida — Matemática 6º ano | Estação Meridiano</title>
+<style>
+:root{
+  --espaco:#0a1130; --espaco2:#111a45; --espaco3:#1b285f;
+  --painel:#0e1738; --borda:#2b3d7a;
+  --ciano:#35e0d6; --ciano2:#8ff5ee;
+  --ambar:#f4b53d; --ambar2:#ffd479;
+  --rosa:#ff6b9d; --verde:#3fd08a; --verde2:#7be9b3;
+  --vermelho:#ff6a5c; --texto:#e8ecff; --texto2:#aab4e6;
+  --branco:#f6f8ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:"Segoe UI",system-ui,sans-serif;
+  background:var(--espaco);
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(53,224,214,.10), transparent 42%),
+    radial-gradient(circle at 85% 88%, rgba(244,181,61,.10), transparent 42%),
+    radial-gradient(circle at 60% 40%, rgba(255,107,157,.06), transparent 50%);
+  color:var(--texto); line-height:1.65; font-size:17px;
+}
+body.bloqueado > *:not(#capa-relogio){filter:blur(7px); pointer-events:none; user-select:none}
+.wrap{max-width:940px; margin:0 auto; padding:0 18px 90px}
+header.topo{background:linear-gradient(135deg,var(--espaco2),var(--espaco3));border-bottom:4px solid var(--ciano);padding:26px 18px 20px;text-align:center}
+header.topo .selo{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ciano2)}
+header.topo h1{margin:6px 0 4px;font-size:30px;color:var(--branco)}
+header.topo p.sub{margin:0;color:var(--texto2);font-size:15px}
+.barra-rel{position:sticky;top:0;z-index:50;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;background:rgba(10,17,48,.96);border-bottom:1px solid rgba(53,224,214,.35);padding:8px 14px;font-size:14px}
+.barra-rel #rel-tempo{color:var(--ciano2);font-weight:700}
+.barra-rel #rel-restante{color:var(--texto2);opacity:.9}
+#rel-aviso{display:none;width:100%;text-align:center;background:rgba(244,181,61,.2);border-radius:8px;padding:6px;margin-top:4px}
+nav.abas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 8px}
+nav.abas a{font-size:14px;text-decoration:none;padding:8px 14px;border-radius:999px;color:var(--texto2);border:1px solid rgba(53,224,214,.4);background:rgba(17,26,69,.7)}
+nav.abas a.ativo{background:var(--ciano);color:#062a28;font-weight:700;border-color:var(--ciano)}
+.carta{background:linear-gradient(180deg,var(--painel),#0b1330);color:var(--texto);border-radius:14px;padding:20px 22px;margin:18px 0;box-shadow:0 8px 22px rgba(0,0,0,.4);border:1px solid var(--borda)}
+.carta h2{margin:0 0 10px;font-size:22px;color:var(--ciano2)}
+.carta h3{margin:16px 0 6px;font-size:18px;color:var(--ambar2)}
+.carta p{margin:10px 0}
+.leitura b{color:var(--ciano2)}
+.destaque{background:rgba(53,224,214,.12);border-left:6px solid var(--ciano);padding:12px 16px;border-radius:8px;margin:14px 0}
+.destaque b{color:var(--ciano2)}
+.exemplo{background:rgba(244,181,61,.10);border:1px dashed var(--ambar);border-radius:10px;padding:12px 16px;margin:14px 0}
+.exemplo .et{display:block;font-weight:800;color:var(--ambar2);font-size:12px;letter-spacing:1px;margin-bottom:6px}
+.conta{font-family:"Consolas","Courier New",monospace;background:#05122b;color:var(--ambar2);border-radius:6px;padding:2px 8px;display:inline-block;margin:2px 0;letter-spacing:.5px}
+.postit{background:#ffe98a;color:#3a2b06;border-left:7px solid #e0a800;padding:12px 16px;border-radius:8px;margin:14px 0;box-shadow:2px 3px 8px rgba(0,0,0,.25)}
+.postit::before{content:"📌 "}
+.pegadinha{background:#3a1420;color:#ffd7dc;border-left:7px solid var(--vermelho);padding:12px 16px;border-radius:8px;margin:14px 0}
+.pegadinha::before{content:"⚠️ Alerta da Estação: ";font-weight:800;color:var(--rosa)}
+.mat{font-family:"Consolas",monospace;color:var(--ambar2);font-weight:700}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+th,td{border:1px solid var(--borda);padding:8px 10px;text-align:center}
+th{background:var(--espaco3);color:var(--ciano2)}
+.btn{font-size:15px;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn-1{background:var(--ciano);color:#062a28}
+.btn-1:hover{background:var(--ciano2)}
+.btn-2{background:transparent;color:var(--texto2);border:1px solid rgba(53,224,214,.5)}
+.btn-grande{font-size:19px;padding:14px 30px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+textarea,input[type=text]{width:100%;font-size:15px;padding:10px;border-radius:8px;border:2px solid var(--borda);background:#f6f8ff;color:#111a2e;resize:vertical}
+textarea:focus{outline:none;border-color:var(--ciano)}
+.perg{margin:16px 0;padding:14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--borda)}
+.perg.vermelha{background:#3a1420;border:2px solid var(--vermelho)}
+.perg .enun{font-weight:700;margin-bottom:8px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle}
+.tag.c{background:rgba(53,224,214,.2);color:var(--ciano2)}
+.tag.a{background:rgba(244,181,61,.2);color:var(--ambar2)}
+.aviso-copia{background:#4a3806;border-left:6px solid #e0a800;padding:10px 14px;border-radius:8px;margin:10px 0;font-size:14px;color:#ffe98a}
+.aviso-vermelho{background:#4a0f12;border-left:6px solid var(--vermelho);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:14px;color:#ffd7dc}
+.modelo{background:rgba(63,208,138,.12);border-left:6px solid var(--verde);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:15px;color:var(--verde2)}
+.checklist{font-size:14px;margin-top:8px}
+.checklist .item{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+.checklist .item span{flex:1;min-width:180px}
+.mini{font-size:13px;padding:5px 12px;border-radius:8px;border:1px solid var(--borda);background:#0e1738;color:var(--texto);cursor:pointer}
+.mini.on-sim{background:var(--verde);color:#052a1c;border-color:var(--verde)}
+.mini.on-nao{background:var(--vermelho);color:#3a0a08;border-color:var(--vermelho)}
+.bloco{margin:22px 0}
+.bloco.trancado .corpo{display:none}
+.bloco .cabeca{display:flex;gap:10px;align-items:center;cursor:pointer}
+.bloco .num{background:var(--ciano);color:#062a28;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.bloco.trancado .num{background:#3a4470;color:#aab}
+.bloco .cabeca h2{margin:0;font-size:20px;color:var(--branco)}
+.bloco .status{margin-left:auto;font-size:13px}
+.selo-ok{color:var(--verde2)} .selo-rev{color:var(--ambar2)}
+.fix{margin:10px 0;padding:12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--borda)}
+.fix .fq{font-weight:700;margin-bottom:6px}
+.fix .alt{display:block;margin:6px 0;padding:8px 12px;border-radius:8px;background:#0e1738;border:1px solid var(--borda);cursor:pointer;font-size:15px}
+.fix .alt.escolhida{border-color:var(--ambar);background:rgba(244,181,61,.14)}
+.fix .alt.certa{background:rgba(63,208,138,.18);border-color:var(--verde)}
+.fix .alt.errada{background:rgba(255,106,92,.14);border-color:var(--vermelho);opacity:.8}
+.fix .exp{display:none;margin-top:6px;font-size:14px;background:rgba(255,255,255,.05);border:1px solid var(--borda);border-radius:8px;padding:8px 10px}
+.fix.corrigida .exp{display:block}
+.barra{height:12px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin:10px 0}
+.barra div{height:100%;background:linear-gradient(90deg,var(--verde),var(--ciano));width:0;transition:width .4s}
+.capa-relogio{position:fixed;inset:0;z-index:200;background:rgba(10,17,48,.98);display:flex;align-items:center;justify-content:center;padding:20px}
+.capa-cx{max-width:520px;text-align:center;background:linear-gradient(160deg,var(--espaco2),var(--espaco3));border:2px solid var(--ciano);border-radius:18px;padding:34px 26px}
+.capa-icone{font-size:54px}
+.capa-cx h2{color:var(--ciano2);margin:8px 0 12px}
+.capa-cx p{color:var(--texto2);font-size:16px}
+.modal-bg{position:fixed;inset:0;background:rgba(4,8,22,.85);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px}
+.modal-cx{max-width:520px;width:100%;background:linear-gradient(160deg,var(--espaco2),var(--espaco3));border:2px solid var(--ciano);border-radius:16px;padding:24px}
+.modal-cx h3{margin:0 0 10px;color:var(--ciano2)}
+.modal-corpo{color:var(--texto2);font-size:16px}
+.modal-pe{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+.pausa-relogio{font-size:34px;text-align:center;color:var(--ambar2);font-family:"Courier New",monospace}
+.painel{background:rgba(17,26,69,.85);border:1px solid var(--borda);border-radius:12px;padding:14px;margin:22px 0;font-size:14px;text-align:center}
+.painel .linha{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.painel textarea{min-height:110px;margin-top:10px}
+.proximo{text-align:center;margin:32px 0 10px}
+.proximo a{display:inline-block;background:var(--verde);color:#052a1c;text-decoration:none;padding:14px 26px;border-radius:12px;font-weight:800}
+.centro{text-align:center} .pequeno{font-size:14px} .oculto{display:none}
+ul.limpa{padding-left:20px} ul.limpa li{margin:6px 0}
+@media(max-width:520px){ body{font-size:16px} header.topo h1{font-size:23px} .carta{padding:16px} }
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="selo">🛰️ Estação Meridiano · Matemática 6º ano · Colégio São José</div>
+  <h1>📖 Leitura Estendida com Fixação</h1>
+  <p class="sub">MMC e MDC · Comprimento, Perímetro, Área, Volume, Capacidade, Massa e Temperatura — prova de 18/09</p>
+</header>
+<div class="barra-rel">
+  <span id="rel-tempo">⏱️ 0min 00s</span>
+  <span id="rel-restante">parado</span>
+  <button class="btn btn-2" id="btn-terminar" style="padding:4px 12px;font-size:13px">⏹ Terminar agora</button>
+  <div id="rel-aviso"></div>
+</div>
+<div class="wrap">
+  <nav class="abas">
+    <a href="index.html">🏠 Início</a>
+    <a class="ativo" href="leitura-estendida.html">📖 Leitura</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html">📝 Simulado</a>
+  </nav>
+  <div class="carta">
+    <h2>Bem-vindo(a) à Estação Meridiano, cadete!</h2>
+    <p>Sua missão é <b>calibrar os instrumentos</b> da estação em <b>9 setores</b>. Em cada setor você
+    <b>lê as instruções</b>, faz <b>3 testes de fixação</b> e responde <b>3 perguntas escrevendo com as suas palavras</b>.</p>
+    <ul class="limpa">
+      <li>Para abrir o próximo setor, acerte pelo menos <b>2 dos 3</b> testes de fixação (70%).</li>
+      <li>As perguntas escritas são para <b>pensar</b>, não para copiar. Copiar o texto trava a conferência.</li>
+      <li>Tudo é salvo sozinho neste computador. Pode fechar e voltar depois.</li>
+    </ul>
+    <div class="barra"><div id="barra-geral"></div></div>
+    <p class="centro pequeno" id="progresso-txt">0 de 9 setores calibrados</p>
+  </div>
+  <div id="blocos"></div>
+  <div id="final" class="oculto">
+    <div class="carta" style="background:linear-gradient(180deg,#3a1420,#2a0e18)">
+      <h2>🚨 As 10 pegadinhas desta prova</h2>
+      <ol id="lista-pegadinhas" class="limpa"></ol>
+    </div>
+    <div class="carta">
+      <h2>🗂️ O que caiu em cada setor</h2>
+      <table><thead><tr><th>Tópico do conteúdo</th><th>Onde estudei</th></tr></thead>
+      <tbody id="tab-cobertura"></tbody></table>
+    </div>
+    <div class="carta">
+      <h2>🔁 Para revisar antes da prova</h2>
+      <div id="lista-revisar"></div>
+    </div>
+    <div class="proximo"><a href="resumo.html">Próximo material: 🗺️ Resumo →</a></div>
+  </div>
+  <div class="painel">
+    <div>💾 Salvamento automático — <span id="salvo-quando">ainda não salvo</span></div>
+    <div class="linha">
+      <button class="btn btn-2" onclick="exportarTudo()">📥 Exportar</button>
+      <button class="btn btn-2" onclick="importarTudo()">📤 Importar</button>
+      <button class="btn btn-2" onclick="zerarTudo()">🗑️ Zerar tudo</button>
+    </div>
+    <div id="caixa-export" style="display:none"><p class="pequeno">Copie este texto e guarde num arquivo:</p><textarea readonly></textarea></div>
+    <div id="caixa-import" style="display:none"><p class="pequeno">Cole aqui o texto do backup:</p><textarea id="area-import"></textarea>
+      <button class="btn btn-1" onclick="confirmarImport()">Restaurar</button></div>
+  </div>
+</div>
+<script>
+var MEM = {};
+var Store = {
+  get:function(k){try{var v=localStorage.getItem(k);return v===null?(MEM[k]===undefined?null:MEM[k]):v;}catch(e){return MEM[k]===undefined?null:MEM[k];}},
+  set:function(k,v){MEM[k]=v;try{localStorage.setItem(k,v);}catch(e){}},
+  del:function(k){delete MEM[k];try{localStorage.removeItem(k);}catch(e){}},
+  getJSON:function(k,def){var v=this.get(k);if(!v)return def;try{return JSON.parse(v);}catch(e){return def;}},
+  setJSON:function(k,o){this.set(k,JSON.stringify(o));}
+};
+function modal(titulo, corpoHTML, botoes){
+  var velho=document.getElementById('modal-bg'); if(velho)velho.remove();
+  var bg=document.createElement('div'); bg.id='modal-bg'; bg.className='modal-bg';
+  var cx=document.createElement('div'); cx.className='modal-cx';
+  cx.innerHTML='<h3>'+titulo+'</h3><div class="modal-corpo">'+corpoHTML+'</div>';
+  var pe=document.createElement('div'); pe.className='modal-pe';
+  (botoes||[{texto:'Fechar'}]).forEach(function(b){
+    var bt=document.createElement('button'); bt.className='btn '+(b.classe||'btn-2'); bt.textContent=b.texto;
+    bt.onclick=function(){bg.remove(); if(b.acao)b.acao();}; pe.appendChild(bt);
+  });
+  cx.appendChild(pe); bg.appendChild(cx); document.body.appendChild(bg); return bg;
+}
+var RELOGIO=(function(){
+  var KEY='', MIN_SESSAO=45, INAT=180000, PAUSA=300000;
+  var d={totalMs:0,ativoMs:0,sessoes:[],extra:{}};
+  var sessaoMs=0, rodando=false, travado=false, ultimaAtiv=Date.now(), pausadoInat=false;
+  var elTempo, elAviso, timer, fimPausa=0, inicioSessao=null;
+  function fmt(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60),h=Math.floor(m/60);m=m%60;s=s%60;return (h>0?h+'h ':'')+m+'min '+(s<10?'0':'')+s+'s';}
+  function salvar(){d.extra=d.extra||{};Store.setJSON(KEY+'_tempo',d);}
+  function pintar(){
+    if(!elTempo)return;
+    elTempo.textContent='⏱️ '+fmt(d.ativoMs);
+    var restante=MIN_SESSAO*60000-sessaoMs;
+    var elRest=document.getElementById('rel-restante');
+    if(elRest)elRest.textContent=travado?'pausa obrigatória':(rodando?'faltam '+Math.max(0,Math.ceil(restante/60000))+' min nesta sessão':'parado');
+  }
+  function marcarAtividade(){ultimaAtiv=Date.now();if(pausadoInat){pausadoInat=false;esconderAviso();}}
+  function mostrarAviso(html){if(!elAviso)return;elAviso.innerHTML=html;elAviso.style.display='block';}
+  function esconderAviso(){if(elAviso)elAviso.style.display='none';}
+  function tick(){
+    if(!rodando)return;
+    var agora=Date.now();
+    if(travado){var falta=fimPausa-agora;if(falta<=0){destravar();}else{var mm=Math.floor(falta/60000),ss=Math.floor((falta%60000)/1000);var el=document.getElementById('pausa-contagem');if(el)el.textContent=mm+':'+(ss<10?'0':'')+ss;}return;}
+    d.totalMs+=1000;
+    if(agora-ultimaAtiv<INAT){d.ativoMs+=1000;sessaoMs+=1000;}
+    else if(!pausadoInat){pausadoInat=true;mostrarAviso('😴 <b>Estudo pausado</b> — toque na tela para continuar.');}
+    if(sessaoMs>=MIN_SESSAO*60000)travar();
+    if(d.totalMs%10000===0)salvar();
+    pintar();
+  }
+  function travar(){
+    travado=true;sessaoMs=0;fimPausa=Date.now()+PAUSA;
+    var bg=document.createElement('div');bg.id='pausa-bg';bg.className='modal-bg';
+    bg.innerHTML='<div class="modal-cx"><h3>🛰️ Hora de recarregar!</h3><div class="modal-corpo"><p>Você estudou <b>'+MIN_SESSAO+' minutos</b> seguidos. Agora é uma pausa obrigatória de 5 minutos.</p><p>Levante, beba água, olhe pela janela. A estação volta sozinha.</p><p class="pausa-relogio">⏳ <span id="pausa-contagem">5:00</span></p></div></div>';
+    document.body.appendChild(bg);salvar();
+  }
+  function destravar(){travado=false;var bg=document.getElementById('pausa-bg');if(bg)bg.remove();marcarAtividade();}
+  function comecar(){var capa=document.getElementById('capa-relogio');if(capa)capa.remove();document.body.classList.remove('bloqueado');rodando=true;inicioSessao=new Date().toISOString();marcarAtividade();if(!timer)timer=setInterval(tick,1000);pintar();}
+  function terminar(cb){
+    modal('⏹ Terminar agora?','<p>Quer encerrar o estudo agora? O tempo é salvo e, no quiz ou simulado, a tentativa é <b>fechada como está</b> — mesmo com questões em branco.</p>',
+      [{texto:'Continuar estudando',classe:'btn-2'},
+       {texto:'Sim, terminar',classe:'btn-1',acao:function(){rodando=false;if(inicioSessao){d.sessoes.push({inicio:inicioSessao,fim:new Date().toISOString()});inicioSessao=null;}salvar();pintar();if(cb)cb();}}]);
+  }
+  return{
+    init:function(opts){
+      KEY=opts.key;MIN_SESSAO=opts.minutos||45;
+      d=Store.getJSON(KEY+'_tempo',{totalMs:0,ativoMs:0,sessoes:[],extra:{}});
+      d.sessoes=d.sessoes||[];d.extra=d.extra||{};
+      elTempo=document.getElementById('rel-tempo');elAviso=document.getElementById('rel-aviso');
+      document.body.classList.add('bloqueado');
+      var capa=document.createElement('div');capa.id='capa-relogio';capa.className='capa-relogio';
+      capa.innerHTML='<div class="capa-cx"><div class="capa-icone">⏱️</div><h2>'+(opts.titulo||'Pronto para calibrar?')+'</h2><p>O relógio de estudo conta quanto tempo você estudou de verdade. Cada sessão dura <b>'+MIN_SESSAO+' minutos</b>, depois vem uma pausa de 5 minutos.</p><button class="btn btn-1 btn-grande" id="btn-comecar">🛰️ Começar a estudar</button></div>';
+      document.body.appendChild(capa);
+      document.getElementById('btn-comecar').onclick=comecar;
+      ['click','keydown','scroll','touchstart','input'].forEach(function(ev){document.addEventListener(ev,marcarAtividade,true);});
+      window.addEventListener('beforeunload',function(){if(inicioSessao)d.sessoes.push({inicio:inicioSessao,fim:new Date().toISOString()});salvar();});
+      pintar();
+      var bt=document.getElementById('btn-terminar');if(bt)bt.onclick=function(){terminar(opts.aoTerminar);};
+    },
+    extra:function(obj){d.extra=Object.assign(d.extra||{},obj);salvar();},
+    dados:function(){return d;},
+    zerar:function(){d={totalMs:0,ativoMs:0,sessoes:[],extra:{}};sessaoMs=0;salvar();pintar();},
+    fmt:fmt,
+    _debug:function(o){if(o&&o.restante!==undefined)sessaoMs=MIN_SESSAO*60000-o.restante*1000;if(o&&o.inat!==undefined)ultimaAtiv=Date.now()-o.inat*1000;if(o&&o.pausa!==undefined)fimPausa=Date.now()+o.pausa*1000;}
+  };
+})();
+var Anticopia=(function(){
+  function norm(t){return (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+  function pal(t){var n=norm(t);return n?n.split(' '):[];}
+  function marcar(a,b,min){
+    var marcas=new Array(a.length).fill(0),maior=0;
+    var prev=new Array(b.length+1).fill(0);
+    for(var i=0;i<a.length;i++){
+      var cur=new Array(b.length+1).fill(0);
+      for(var j=0;j<b.length;j++){
+        if(a[i]===b[j]){cur[j+1]=prev[j]+1;if(cur[j+1]>maior)maior=cur[j+1];if(cur[j+1]>=min){for(var k=0;k<cur[j+1];k++)marcas[i-k]=1;}}
+      }
+      prev=cur;
+    }
+    return{marcas:marcas,maior:maior};
+  }
+  return{
+    ehCopia:function(resposta,textoBloco,pergunta){
+      var r=pal(resposta);
+      if(r.length<6)return false;
+      var citacao=marcar(r,pal(pergunta||''),4).marcas;
+      var livres=[];
+      for(var i=0;i<r.length;i++){if(!citacao[i])livres.push(r[i]);}
+      if(livres.length<6)return false;
+      var t=pal(textoBloco);
+      var m8=marcar(livres,t,8);
+      if(m8.maior>=8)return true;
+      var m5=marcar(livres,t,5);
+      var soma=m5.marcas.reduce(function(x,y){return x+y;},0);
+      return (soma/livres.length)>0.6;
+    }
+  };
+})();
+function painelSalvar(KEY,coletar,aoZerar){
+  function carimbo(){var q=Store.get(KEY+'_quando');var el=document.getElementById('salvo-quando');if(el)el.textContent=q?'último salvamento: '+q:'ainda não salvo';}
+  window.salvarAgora=function(){Store.setJSON(KEY,coletar());Store.set(KEY+'_quando',new Date().toLocaleString('pt-BR'));carimbo();};
+  window.exportarTudo=function(){var pacote={chave:KEY,dados:Store.getJSON(KEY,{}),tempo:Store.getJSON(KEY+'_tempo',{}),quando:Store.get(KEY+'_quando')};var txt=JSON.stringify(pacote,null,2);var cx=document.getElementById('caixa-export');cx.style.display='block';cx.querySelector('textarea').value=txt;cx.querySelector('textarea').select();};
+  window.importarTudo=function(){document.getElementById('caixa-import').style.display='block';};
+  window.confirmarImport=function(){var txt=document.getElementById('area-import').value;try{var p=JSON.parse(txt);if(p.dados)Store.setJSON(KEY,p.dados);if(p.tempo)Store.setJSON(KEY+'_tempo',p.tempo);if(p.quando)Store.set(KEY+'_quando',p.quando);modal('✅ Importado','<p>Os dados voltaram. A página vai recarregar.</p>',[{texto:'Ok',classe:'btn-1',acao:function(){location.reload();}}]);}catch(e){modal('❌ Não deu','<p>Esse texto não parece um backup válido.</p>',[{texto:'Ok',classe:'btn-1'}]);}};
+  window.zerarTudo=function(){modal('🗑️ Zerar tudo?','<p>Isso apaga todas as respostas <b>e o tempo de estudo</b> deste material. Não dá para desfazer.</p>',[{texto:'Cancelar',classe:'btn-2'},{texto:'Sim, apagar',classe:'btn-1',acao:function(){Store.del(KEY);Store.del(KEY+'_quando');Store.del(KEY+'_tempo');if(aoZerar)aoZerar();location.reload();}}]);};
+  carimbo();
+}
+var BLOCOS=[
+{icone:"⚙️",titulo:"Setor 1 — MDC: o maior divisor comum",topico:"Cálculo do MDC (problemas)",texto:`<div class="leitura"><p>O <b>MDC</b> (Máximo Divisor Comum) de dois ou mais números é o <b>maior número</b> que divide todos eles ao mesmo tempo, sem deixar resto.</p><div class="destaque">Um jeito seguro de achar o MDC é <b>decompor em fatores primos</b> e multiplicar só os fatores <b>comuns</b>, cada um com o <b>menor expoente</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>MDC de 12 e 18: 12 = 2 × 2 × 3 e 18 = 2 × 3 × 3. Os fatores comuns são um 2 e um 3 → MDC = 2 × 3 = <span class="conta">6</span>.</div><p>O MDC aparece em problemas de <b>repartir em grupos iguais o maior possível</b>: cortar pedaços do mesmo tamanho, formar times iguais, etc.</p><div class="postit">MDC = "o MAIOR que cabe em todos". Serve para dividir em partes iguais o maior possível.</div><div class="pegadinha">Não confunda com o MMC! MDC é o MAIOR divisor comum (geralmente pequeno); MMC é o MENOR múltiplo comum (geralmente maior).</div></div>`,
+ fix:[
+  {q:"O MDC de 8 e 12 é:",alts:["2","4","24","6"],correta:1,exp:"8=2·2·2 e 12=2·2·3. Comuns: dois 2 → 2·2=4."},
+  {q:"O MDC serve para resolver problemas de:",alts:["Juntar tudo num total","Repartir em grupos iguais o maior possível","Somar medidas","Comparar decimais"],correta:1,exp:"MDC = maior parte igual em que dá para dividir."},
+  {q:"Numa festa há 24 balas e 36 pirulitos para montar sacolinhas iguais, sem sobrar. O maior nº de sacolinhas é o MDC de 24 e 36, que vale:",alts:["6","12","72","4"],correta:1,exp:"24=2·2·2·3, 36=2·2·3·3. Comuns: 2·2·3=12."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Com as suas palavras, o que é o MDC de dois números?",modelo:"É o maior número que divide os dois ao mesmo tempo, sem deixar resto.",checklist:["Falei em 'maior número'?","Falei que divide os dois sem sobrar (sem resto)?"]},
+  {tipo:"a",enun:"Invente um problema do dia a dia que se resolve achando o MDC (só o enunciado).",modelo:"Ex.: 'Tenho 18 lápis e 30 canetas para montar kits iguais sem sobrar. Qual o maior nº de kits?'",checklist:["Meu problema pede o MAIOR grupo/parte igual?","Aparecem dois números para dividir sem sobrar?"]},
+  {tipo:"a",enun:"Ache o MDC de 20 e 30 e escreva o passo a passo que você usou.",modelo:"20=2·2·5, 30=2·3·5. Comuns: 2·5=10. MDC=10.",checklist:["Decompus os dois números em fatores primos?","Multipliquei só os fatores comuns e cheguei a 10?"]}
+ ]},
+{icone:"🔗",titulo:"Setor 2 — MMC: o menor múltiplo comum",topico:"Cálculo do MMC (problemas)",texto:`<div class="leitura"><p>O <b>MMC</b> (Mínimo Múltiplo Comum) de dois ou mais números é o <b>menor número</b> (diferente de zero) que é múltiplo de todos eles ao mesmo tempo.</p><div class="destaque">Para achar o MMC pela decomposição, multiplicamos <b>todos</b> os fatores primos que aparecem, cada um elevado ao <b>maior expoente</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>MMC de 4 e 6: 4 = 2 × 2 e 6 = 2 × 3. Pegamos 2×2 (o maior) e o 3 → MMC = 2 × 2 × 3 = <span class="conta">12</span>.</div><p>O MMC aparece em problemas de <b>coisas que se repetem e se encontram de novo ao mesmo tempo</b>: dois ônibus que partem juntos, luzes que piscam, voltas numa pista.</p><div class="postit">MMC = "quando os dois se encontram de novo". Serve para eventos que se repetem juntos.</div><div class="pegadinha">No MMC pegamos TODOS os fatores (maior expoente); no MDC só os comuns (menor). Regras diferentes!</div></div>`,
+ fix:[
+  {q:"O MMC de 6 e 8 é:",alts:["2","24","48","14"],correta:1,exp:"6=2·3, 8=2·2·2. Maiores: 2·2·2·3=24."},
+  {q:"Dois faróis piscam: um a cada 4s e outro a cada 6s. Piscam juntos de novo a cada:",alts:["10s","2s","12s","24s"],correta:2,exp:"MMC(4,6)=12. A cada 12 segundos."},
+  {q:"O MMC de 3 e 5 é:",alts:["8","15","1","30"],correta:1,exp:"Não têm fator comum: 3·5=15."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Explique, com as suas palavras, a diferença entre MMC e MDC.",modelo:"MMC é o menor múltiplo comum (coisas que se repetem juntas); MDC é o maior divisor comum (repartir em partes iguais).",checklist:["Disse que MMC é o MENOR múltiplo comum?","Disse que MDC é o MAIOR divisor comum?"]},
+  {tipo:"a",enun:"Crie um problema do dia a dia que se resolve com MMC (só o enunciado).",modelo:"Ex.: 'Um ônibus passa a cada 15 min e outro a cada 20 min. De quanto em quanto tempo passam juntos?'",checklist:["Meu problema fala de coisas que se repetem?","A pergunta é quando elas coincidem de novo?"]},
+  {tipo:"a",enun:"Ache o MMC de 9 e 12 mostrando o passo a passo.",modelo:"9=3·3, 12=2·2·3. Maiores: 2·2·3·3=36. MMC=36.",checklist:["Decompus os dois em fatores primos?","Multipliquei todos os fatores com o maior expoente e achei 36?"]}
+ ]},
+{icone:"📏",titulo:"Setor 3 — Medidas de comprimento",topico:"Comprimento (transformação de unidades)",texto:`<div class="leitura"><p>A unidade principal de comprimento é o <b>metro (m)</b>. As outras unidades vão de 10 em 10:</p><div class="destaque">km → hm → dam → <b>m</b> → dm → cm → mm.<br>Cada passo para a <b>direita</b>: <b>multiplica por 10</b>. Cada passo para a <b>esquerda</b>: <b>divide por 10</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos cm há em 3 m? Do m ao cm são 2 passos à direita → ×10×10 = ×100 → 3 m = <span class="conta">300 cm</span>.<br>Quantos m há em 250 cm? 2 passos à esquerda → ÷100 → 250 cm = <span class="conta">2,5 m</span>.</div><div class="postit">Comprimento anda de 10 em 10. Conte os degraus e multiplique (ou divida) por 10 a cada degrau.</div><div class="pegadinha">1 km NÃO é 100 m! São 3 degraus até o metro: 1 km = 1000 m.</div></div>`,
+ fix:[
+  {q:"5 m equivalem a quantos centímetros?",alts:["50 cm","500 cm","5000 cm","0,05 cm"],correta:1,exp:"Do m ao cm: 2 degraus = ×100 → 500 cm."},
+  {q:"2 km valem, em metros:",alts:["200 m","20 m","2000 m","2 m"],correta:2,exp:"Do km ao m: 3 degraus = ×1000 → 2000 m."},
+  {q:"350 cm em metros é:",alts:["3,5 m","35 m","0,35 m","3500 m"],correta:0,exp:"Do cm ao m: 2 degraus à esquerda = ÷100 → 3,5 m."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Explique o que acontece com o número quando você troca de uma unidade menor (cm) para uma maior (m).",modelo:"O número fica menor, porque dividimos por 10 a cada degrau para a esquerda.",checklist:["Disse que o número diminui?","Liguei isso a dividir por 10 (ir para a esquerda)?"]},
+  {tipo:"a",enun:"Transforme 4,2 km em metros e mostre a conta.",modelo:"km→m são 3 degraus à direita: 4,2 × 1000 = 4200 m.",checklist:["Contei 3 degraus do km ao m?","Multipliquei por 1000 e achei 4200 m?"]},
+  {tipo:"a",enun:"Uma corrida tem 1 500 m. Escreva isso em quilômetros e diga como pensou.",modelo:"m→km: 3 degraus à esquerda = ÷1000 → 1,5 km.",checklist:["Dividi por 1000?","Cheguei a 1,5 km?"]}
+ ]},
+{icone:"⬛",titulo:"Setor 4 — Perímetro de figuras planas",topico:"Perímetro de uma figura plana",texto:`<div class="leitura"><p>O <b>perímetro</b> é a medida do <b>contorno</b> de uma figura: basta <b>somar todos os lados</b>.</p><div class="destaque">Quadrado de lado L: perímetro = 4 × L.<br>Retângulo de lados a e b: perímetro = 2 × a + 2 × b.<br>Qualquer figura: some lado por lado.</div><div class="exemplo"><span class="et">EXEMPLO</span>Retângulo de 5 cm por 3 cm → perímetro = 5 + 3 + 5 + 3 = <span class="conta">16 cm</span>.<br>Quadrado de lado 7 cm → perímetro = 4 × 7 = <span class="conta">28 cm</span>.</div><div class="postit">Perímetro = "dar a volta na figura". Some todos os lados. A resposta fica em cm, m...</div><div class="pegadinha">Perímetro NÃO é área! Perímetro é o contorno (soma dos lados); área é o espaço de dentro (unidades ao quadrado).</div></div>`,
+ fix:[
+  {q:"O perímetro de um quadrado de lado 6 cm é:",alts:["12 cm","24 cm","36 cm","6 cm"],correta:1,exp:"4 × 6 = 24 cm."},
+  {q:"Um retângulo tem 8 cm de largura e 5 cm de altura. Seu perímetro é:",alts:["13 cm","26 cm","40 cm","20 cm"],correta:1,exp:"8+5+8+5 = 26 cm."},
+  {q:"O perímetro é medido em:",alts:["Unidades de comprimento (cm, m)","Unidades ao quadrado (cm²)","Litros","Quilogramas"],correta:0,exp:"É um comprimento (o contorno): cm, m, etc."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Explique, com as suas palavras, o que é o perímetro de uma figura.",modelo:"É a soma de todos os lados, ou seja, a medida do contorno da figura.",checklist:["Falei em somar os lados / contorno?","Deixei claro que é a volta por fora?"]},
+  {tipo:"a",enun:"Um triângulo tem lados 4 cm, 6 cm e 9 cm. Calcule o perímetro mostrando a conta.",modelo:"4 + 6 + 9 = 19 cm.",checklist:["Somei os três lados?","Cheguei a 19 cm (com a unidade)?"]},
+  {tipo:"a",enun:"Um jardim quadrado tem 12 m de perímetro. Quanto mede cada lado? Explique.",modelo:"12 ÷ 4 = 3 m (o quadrado tem 4 lados iguais).",checklist:["Usei que o quadrado tem 4 lados iguais?","Dividi 12 por 4 e achei 3 m?"]}
+ ]},
+{icone:"🟩",titulo:"Setor 5 — Medidas de área",topico:"Área (transformação de unidades)",texto:`<div class="leitura"><p><b>Área</b> é a medida da <b>superfície</b> (o espaço de dentro). A unidade principal é o <b>metro quadrado (m²)</b>. Como é "ao quadrado", a escada anda de <b>100 em 100</b>.</p><div class="destaque">km² → hm² → dam² → <b>m²</b> → dm² → cm² → mm².<br>Cada degrau para a direita: <b>×100</b>. Para a esquerda: <b>÷100</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Área do retângulo = base × altura. Um retângulo de 5 m por 3 m tem área 5 × 3 = <span class="conta">15 m²</span>.<br>Quantos cm² há em 2 m²? 2 degraus → ×10000 → 2 m² = <span class="conta">20000 cm²</span>.</div><div class="postit">Área anda de 100 em 100 (é "ao quadrado"). Comprimento 10; área 100.</div><div class="pegadinha">1 m² NÃO é 100 cm²! É 10 000 cm² (×100 por degrau, 2 degraus).</div></div>`,
+ fix:[
+  {q:"A área de um quadrado de lado 4 m é:",alts:["8 m²","16 m²","16 m","12 m²"],correta:1,exp:"lado × lado = 4 × 4 = 16 m²."},
+  {q:"1 m² equivale a quantos cm²?",alts:["100 cm²","1000 cm²","10000 cm²","10 cm²"],correta:2,exp:"Área de 100 em 100; 2 degraus = ×10000."},
+  {q:"A área é medida em:",alts:["cm, m","cm², m²","cm³","litros"],correta:1,exp:"Unidades ao quadrado: cm², m²..."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Por que a escada da área anda de 100 em 100, e não de 10 em 10?",modelo:"Porque a área é 'ao quadrado': cada degrau vale 10 × 10 = 100.",checklist:["Liguei o 100 a ser 'ao quadrado' (10×10)?","Diferenciei do comprimento (10 em 10)?"]},
+  {tipo:"a",enun:"Calcule a área de um retângulo de 7 cm por 4 cm e mostre a conta.",modelo:"base × altura = 7 × 4 = 28 cm².",checklist:["Multipliquei base por altura?","Usei a unidade cm² (ao quadrado)?"]},
+  {tipo:"a",enun:"Transforme 3 m² em cm² e explique o caminho.",modelo:"2 degraus à direita = ×10000 → 3 × 10000 = 30000 cm².",checklist:["Usei ×100 por degrau (2 degraus = ×10000)?","Cheguei a 30000 cm²?"]}
+ ]},
+{icone:"🧊",titulo:"Setor 6 — Medidas de volume",topico:"Volume (transformação de unidades)",texto:`<div class="leitura"><p><b>Volume</b> é o espaço que um objeto ocupa. A unidade principal é o <b>metro cúbico (m³)</b>. Como é "ao cubo", a escada anda de <b>1000 em 1000</b>.</p><div class="destaque">km³ → hm³ → dam³ → <b>m³</b> → dm³ → cm³ → mm³.<br>Cada degrau para a direita: <b>×1000</b>. Para a esquerda: <b>÷1000</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Volume do bloco = comprimento × largura × altura. Uma caixa de 2 m × 1 m × 3 m tem volume 2 × 1 × 3 = <span class="conta">6 m³</span>.<br>Quantos cm³ há em 1 m³? 1 m³ = <span class="conta">1 000 000 cm³</span>.</div><div class="postit">Volume anda de 1000 em 1000 (é "ao cubo"). Comprimento 10, área 100, volume 1000.</div><div class="pegadinha">Cuidado com as três escadas! 10, 100 e 1000. Trocar uma pela outra é erro clássico.</div></div>`,
+ fix:[
+  {q:"O volume de um cubo de aresta 2 cm é:",alts:["6 cm³","8 cm³","4 cm³","8 cm²"],correta:1,exp:"aresta × aresta × aresta = 2 × 2 × 2 = 8 cm³."},
+  {q:"1 m³ equivale a quantos dm³?",alts:["10 dm³","100 dm³","1000 dm³","1 dm³"],correta:2,exp:"Volume de 1000 em 1000: 1 m³ = 1000 dm³."},
+  {q:"A escada do volume anda de:",alts:["10 em 10","100 em 100","1000 em 1000","2 em 2"],correta:2,exp:"Por ser 'ao cubo', cada degrau é ×1000."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Com as suas palavras, o que é o volume de um objeto?",modelo:"É a medida do espaço que o objeto ocupa, em unidades ao cubo (cm³, m³).",checklist:["Falei em 'espaço que ocupa'?","Lembrei que a unidade é ao cubo?"]},
+  {tipo:"a",enun:"Calcule o volume de uma caixa de 3 cm × 4 cm × 5 cm e mostre a conta.",modelo:"3 × 4 × 5 = 60 cm³.",checklist:["Multipliquei as três medidas?","Usei a unidade cm³?"]},
+  {tipo:"a",enun:"Transforme 2 m³ em dm³ e explique.",modelo:"m³→dm³ é 1 degrau = ×1000 → 2 × 1000 = 2000 dm³.",checklist:["Usei ×1000 por degrau?","Cheguei a 2000 dm³?"]}
+ ]},
+{icone:"💧",titulo:"Setor 7 — Medidas de capacidade",topico:"Capacidade (transformação de unidades)",texto:`<div class="leitura"><p><b>Capacidade</b> é quanto um recipiente comporta de líquido. A unidade principal é o <b>litro (L)</b>, e a escada anda de <b>10 em 10</b> (como o comprimento):</p><div class="destaque">kL → hL → daL → <b>L</b> → dL → cL → mL.<br>Direita: ×10 por degrau. Esquerda: ÷10 por degrau.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos mL há em 2 L? Do L ao mL são 3 degraus → ×1000 → 2 L = <span class="conta">2000 mL</span>.<br>Ligação importante: <b>1 L = 1 dm³</b> e <b>1 mL = 1 cm³</b>.</div><div class="postit">Capacidade anda de 10 em 10, igual ao comprimento. E 1 litro = 1 dm³.</div><div class="pegadinha">1 L = 1000 mL (não 100 mL!). São 3 degraus do litro ao mililitro.</div></div>`,
+ fix:[
+  {q:"3 L equivalem a quantos mL?",alts:["300 mL","30 mL","3000 mL","3 mL"],correta:2,exp:"L→mL são 3 degraus = ×1000 → 3000 mL."},
+  {q:"1 litro é o mesmo que:",alts:["1 cm³","1 dm³","1 m³","1 mL"],correta:1,exp:"1 L = 1 dm³ (e 1 mL = 1 cm³)."},
+  {q:"500 mL em litros é:",alts:["5 L","0,5 L","50 L","0,05 L"],correta:1,exp:"mL→L são 3 degraus à esquerda = ÷1000 → 0,5 L."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Explique o que a capacidade de um recipiente mede.",modelo:"Mede quanto de líquido cabe dentro dele, em litros ou mililitros.",checklist:["Falei em 'quanto líquido cabe'?","Citei litro/mililitro?"]},
+  {tipo:"a",enun:"Uma garrafa tem 1,5 L. Quantos mL são? Mostre a conta.",modelo:"L→mL = ×1000 → 1,5 × 1000 = 1500 mL.",checklist:["Multipliquei por 1000?","Achei 1500 mL?"]},
+  {tipo:"a",enun:"Um aquário cúbico tem 8 dm³ de volume. Quantos litros de água ele comporta? Explique a ligação.",modelo:"1 dm³ = 1 L, então 8 dm³ = 8 L.",checklist:["Usei que 1 dm³ = 1 L?","Concluí que são 8 litros?"]}
+ ]},
+{icone:"⚖️",titulo:"Setor 8 — Medidas de massa",topico:"Massa (transformação de unidades)",texto:`<div class="leitura"><p><b>Massa</b> é a quantidade de matéria de um objeto (no dia a dia dizemos "peso"). A unidade principal é o <b>grama (g)</b>, e a escada anda de <b>10 em 10</b>:</p><div class="destaque">kg → hg → dag → <b>g</b> → dg → cg → mg.<br>Direita: ×10 por degrau. Esquerda: ÷10 por degrau.<br>Unidade grande extra: <b>1 tonelada (t) = 1000 kg</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos g há em 2 kg? Do kg ao g são 3 degraus → ×1000 → 2 kg = <span class="conta">2000 g</span>.<br>Quantos kg há em 3 t? 3 × 1000 = <span class="conta">3000 kg</span>.</div><div class="postit">Massa anda de 10 em 10. 1 kg = 1000 g e 1 t = 1000 kg.</div><div class="pegadinha">1 kg = 1000 g (não 100 g!). E 1 t são 1000 kg.</div></div>`,
+ fix:[
+  {q:"5 kg equivalem a quantos gramas?",alts:["500 g","5000 g","50 g","50000 g"],correta:1,exp:"kg→g são 3 degraus = ×1000 → 5000 g."},
+  {q:"2 500 g em quilogramas é:",alts:["25 kg","2,5 kg","250 kg","0,25 kg"],correta:1,exp:"g→kg = ÷1000 → 2,5 kg."},
+  {q:"1 tonelada é igual a:",alts:["100 kg","10 kg","1000 kg","1 kg"],correta:2,exp:"1 t = 1000 kg."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Com as suas palavras, quantos gramas tem 1 quilograma, e por quê?",modelo:"1 kg = 1000 g, porque do kg ao g são 3 degraus de ×10 (=×1000).",checklist:["Disse que 1 kg = 1000 g?","Expliquei os 3 degraus de ×10?"]},
+  {tipo:"a",enun:"Transforme 4 kg em gramas e mostre a conta.",modelo:"4 × 1000 = 4000 g.",checklist:["Multipliquei por 1000?","Cheguei a 4000 g?"]},
+  {tipo:"a",enun:"Um caminhão carrega 2,5 t. Quantos quilogramas são? Explique.",modelo:"1 t = 1000 kg → 2,5 × 1000 = 2500 kg.",checklist:["Usei 1 t = 1000 kg?","Achei 2500 kg?"]}
+ ]},
+{icone:"🌡️",titulo:"Setor 9 — Medidas de temperatura",topico:"Temperatura",texto:`<div class="leitura"><p><b>Temperatura</b> mede o quão quente ou frio algo está. No Brasil usamos a escala <b>Celsius (°C)</b>. Nela, a água <b>congela a 0 °C</b> e <b>ferve a 100 °C</b>.</p><div class="destaque">Para ler um termômetro, veja em que número o líquido parou. A <b>variação</b> de temperatura é a diferença entre duas medidas: temperatura final − temperatura inicial.</div><div class="exemplo"><span class="et">EXEMPLO</span>De manhã fazia 18 °C e à tarde 27 °C. A variação foi 27 − 18 = <span class="conta">9 °C</span> (subiu 9 graus).<br>Existem outras escalas, como <b>Fahrenheit (°F)</b> e <b>Kelvin (K)</b>, mas na sua prova o foco é o Celsius.</div><div class="postit">Água: congela a 0 °C, ferve a 100 °C. Variação = final menos inicial.</div><div class="pegadinha">Temperaturas abaixo de zero são negativas (ex.: −3 °C). De −2 °C para 5 °C a variação é 5 − (−2) = 7 °C, não 3!</div></div>`,
+ fix:[
+  {q:"Na escala Celsius, a água ferve a:",alts:["0 °C","50 °C","100 °C","37 °C"],correta:2,exp:"Ferve a 100 °C e congela a 0 °C."},
+  {q:"A temperatura passou de 15 °C para 22 °C. A variação foi de:",alts:["7 °C","37 °C","5 °C","8 °C"],correta:0,exp:"22 − 15 = 7 °C."},
+  {q:"De −4 °C para 3 °C, a temperatura variou:",alts:["1 °C","−1 °C","7 °C","3 °C"],correta:2,exp:"3 − (−4) = 3 + 4 = 7 °C."}
+ ],
+ perguntas:[
+  {tipo:"c",enun:"Com as suas palavras, o que quer dizer 'variação de temperatura'?",modelo:"É a diferença entre a temperatura final e a inicial (quanto subiu ou desceu).",checklist:["Falei em diferença entre duas temperaturas?","Deixei claro que é final menos inicial?"]},
+  {tipo:"a",enun:"De madrugada marcava 12 °C e ao meio-dia 29 °C. Calcule a variação e mostre a conta.",modelo:"29 − 12 = 17 °C (subiu 17 graus).",checklist:["Fiz final menos inicial (29 − 12)?","Cheguei a 17 °C?"]},
+  {tipo:"a",enun:"Num freezer estava −5 °C e depois foi para 2 °C. Qual foi a variação? Explique o cuidado com o negativo.",modelo:"2 − (−5) = 2 + 5 = 7 °C. Subtrair um negativo vira somar.",checklist:["Percebi que subtrair (−5) vira somar 5?","Cheguei a 7 °C?"]}
+ ]}
+];
+var PEGADINHAS=[
+ "MDC é o MAIOR divisor comum; MMC é o MENOR múltiplo comum. Não troque um pelo outro.",
+ "No MDC pegamos só os fatores COMUNS (menor expoente); no MMC, TODOS os fatores (maior expoente).",
+ "As três escadas: comprimento de 10 em 10; área de 100 em 100; volume de 1000 em 1000.",
+ "1 km = 1000 m (3 degraus até o metro), não 100 m.",
+ "1 m² = 10 000 cm² (não 100 cm²), porque a área é ×100 por degrau.",
+ "Perímetro é o contorno (soma dos lados, em cm/m); área é o espaço de dentro (em cm²/m²).",
+ "1 L = 1000 mL, e 1 L = 1 dm³ (1 mL = 1 cm³).",
+ "1 kg = 1000 g e 1 tonelada = 1000 kg.",
+ "Variação de temperatura = final − inicial.",
+ "Com negativos: de −2 °C a 5 °C a variação é 7 °C (5 − (−2)), não 3 °C."
+];
+var CHAVE='kit_mat6_sj_grandezas_leitura_v1';
+var estado=Store.getJSON(CHAVE,null)||{
+  fixSel:BLOCOS.map(function(b){return b.fix.map(function(){return -1;});}),
+  fixFeita:BLOCOS.map(function(){return false;}),
+  resp:BLOCOS.map(function(b){return b.perguntas.map(function(){return "";});}),
+  conferida:BLOCOS.map(function(b){return b.perguntas.map(function(){return false;});}),
+  transcrita:BLOCOS.map(function(b){return b.perguntas.map(function(){return false;});}),
+  tentou:BLOCOS.map(function(b){return b.perguntas.map(function(){return "";});}),
+  chk:BLOCOS.map(function(b){return b.perguntas.map(function(p){return p.checklist.map(function(){return null;});});}),
+  aberto:0
+};
+function salvarEstado(){estado.data=new Date().toISOString();Store.setJSON(CHAVE,estado);Store.set(CHAVE+'_quando',new Date().toLocaleString('pt-BR'));var el=document.getElementById('salvo-quando');if(el)el.textContent='último salvamento: '+Store.get(CHAVE+'_quando');}
+function textoPuro(html){var d=document.createElement('div');d.innerHTML=html;return d.textContent||'';}
+function blocoLiberado(i){if(i===0)return true;return estado.fixFeita[i-1] && perguntasOk(i-1);}
+function perguntasOk(i){return estado.conferida[i].every(function(c){return c;});}
+function render(){
+  var cont=document.getElementById('blocos');cont.innerHTML='';
+  BLOCOS.forEach(function(b,i){
+    var lib=blocoLiberado(i);
+    var div=document.createElement('div');
+    div.className='bloco '+(lib?'':'trancado');
+    div.id='bloco'+i;
+    var fixHTML=b.fix.map(function(fx,fi){
+      var alts=fx.alts.map(function(a,ai){return '<span class="alt" id="alt_'+i+'_'+fi+'_'+ai+'" onclick="selFix('+i+','+fi+','+ai+')">'+'ABCD'[ai]+') '+a+'</span>';}).join('');
+      return '<div class="fix" id="fix_'+i+'_'+fi+'"><div class="fq">'+(fi+1)+'. '+fx.q+'</div>'+alts+'<div class="exp">💡 '+fx.exp+'</div></div>';
+    }).join('');
+    var pergHTML=b.perguntas.map(function(p,pi){
+      var tag=p.tipo==='c'?'<span class="tag c">CONCEITO</span>':'<span class="tag a">APLICAÇÃO</span>';
+      return '<div class="perg" id="perg_'+i+'_'+pi+'"><div class="enun">'+(pi+1)+'. '+p.enun+tag+'</div><textarea id="ta_'+i+'_'+pi+'" rows="3" placeholder="Escreva com as suas palavras..." oninput="mudouResp('+i+','+pi+')"></textarea><div id="fb_'+i+'_'+pi+'"></div></div>';
+    }).join('');
+    div.innerHTML='<div class="cabeca" onclick="abrir('+i+')"><div class="num">'+(lib?(i+1):'🔒')+'</div><h2>'+b.titulo+'</h2><div class="status" id="st_'+i+'"></div></div><div class="corpo"><div class="carta"><div class="leitura">'+b.texto+'</div></div><div class="carta"><h3>🎯 Testes de fixação</h3><p class="pequeno">Responda os 3 e clique em Conferir. Precisa acertar pelo menos 2 para liberar as perguntas escritas.</p>'+fixHTML+'<button class="btn btn-1" id="btnfix_'+i+'" onclick="conferirFix('+i+')">Conferir testes ✓</button><span id="placfix_'+i+'" class="pequeno" style="margin-left:10px"></span></div><div class="carta" id="cartaperg_'+i+'"><h3>✍️ Perguntas para escrever</h3><p class="pequeno">1 de conceito e 2 de aplicação. O botão Conferir só libera com as 3 preenchidas.</p>'+pergHTML+'<button class="btn btn-1" id="btnperg_'+i+'" onclick="conferirPerg('+i+')">Conferir respostas ✓</button></div></div>';
+    cont.appendChild(div);
+    div.querySelector('.corpo').style.display=(estado.aberto===i&&lib)?'block':'none';
+  });
+  BLOCOS.forEach(function(b,i){
+    b.fix.forEach(function(fx,fi){var sel=estado.fixSel[i][fi];if(sel>=0){var el=document.getElementById('alt_'+i+'_'+fi+'_'+sel);if(el)el.classList.add('escolhida');}});
+    if(estado.fixFeita[i])mostrarFix(i);
+    b.perguntas.forEach(function(p,pi){var ta=document.getElementById('ta_'+i+'_'+pi);if(ta)ta.value=estado.resp[i][pi];if(estado.conferida[i][pi])mostrarFeedback(i,pi);});
+    atualizaStatus(i);
+  });
+  atualizarBarra();
+}
+function abrir(i){
+  if(!blocoLiberado(i)){toast('🔒 Termine o setor anterior primeiro (testes + perguntas).');return;}
+  var c=document.querySelector('#bloco'+i+' .corpo');
+  var visivel=c.style.display==='block';
+  document.querySelectorAll('.bloco .corpo').forEach(function(x){x.style.display='none';});
+  if(!visivel){c.style.display='block';estado.aberto=i;salvarEstado();}
+}
+function selFix(i,fi,ai){
+  if(estado.fixFeita[i])return;
+  for(var k=0;k<BLOCOS[i].fix[fi].alts.length;k++){var el=document.getElementById('alt_'+i+'_'+fi+'_'+k);if(el)el.classList.remove('escolhida');}
+  document.getElementById('alt_'+i+'_'+fi+'_'+ai).classList.add('escolhida');
+  estado.fixSel[i][fi]=ai;salvarEstado();
+}
+function conferirFix(i){
+  var b=BLOCOS[i];
+  if(!estado.fixSel[i].every(function(r){return r>=0;})){toast('Responda os 3 testes!');return;}
+  var acertos=0;b.fix.forEach(function(fx,fi){if(estado.fixSel[i][fi]===fx.correta)acertos++;});
+  mostrarFix(i);
+  var plac=document.getElementById('placfix_'+i);
+  if(acertos>=2){
+    estado.fixFeita[i]=true;
+    plac.textContent='✅ '+acertos+' de 3 — perguntas liberadas!';plac.style.color='var(--verde2)';
+    document.getElementById('btnfix_'+i).style.display='none';
+  } else {
+    plac.textContent='Você acertou '+acertos+' de 3. Precisa de 2. Reveja o texto e tente de novo. ↻';plac.style.color='var(--ambar2)';
+    estado.fixSel[i]=b.fix.map(function(){return -1;});
+    setTimeout(function(){render();abrir(i);},1200);
+  }
+  atualizaStatus(i);salvarEstado();atualizarBarra();
+}
+function mostrarFix(i){
+  var b=BLOCOS[i];
+  b.fix.forEach(function(fx,fi){
+    var f=document.getElementById('fix_'+i+'_'+fi);if(!f)return;
+    f.classList.add('corrigida');
+    var sel=estado.fixSel[i][fi];
+    for(var k=0;k<fx.alts.length;k++){var el=document.getElementById('alt_'+i+'_'+fi+'_'+k);if(!el)continue;el.style.pointerEvents='none';if(k===fx.correta)el.classList.add('certa');if(k===sel&&sel!==fx.correta)el.classList.add('errada');}
+  });
+}
+function mudouResp(i,pi){
+  estado.resp[i][pi]=document.getElementById('ta_'+i+'_'+pi).value;
+  if(estado.transcrita[i][pi]){
+    var texto=textoPuro(BLOCOS[i].texto);
+    if(!Anticopia.ehCopia(estado.resp[i][pi],texto,BLOCOS[i].perguntas[pi].enun)){
+      estado.transcrita[i][pi]=false;
+      var perg=document.getElementById('perg_'+i+'_'+pi);if(perg)perg.classList.remove('vermelha');
+      if(estado.conferida[i][pi])mostrarFeedback(i,pi);
+    }
+  }
+  salvarEstado();
+}
+function conferirPerg(i){
+  var b=BLOCOS[i];
+  var todas=estado.resp[i].every(function(r){return (r||'').trim().length>=3;});
+  if(!todas){toast('Escreva as 3 respostas (pelo menos 3 letras cada).');return;}
+  var texto=textoPuro(b.texto);
+  var travou=false;
+  b.perguntas.forEach(function(p,pi){
+    var resp=estado.resp[i][pi];
+    var copia=Anticopia.ehCopia(resp,texto,p.enun);
+    if(copia && !estado.transcrita[i][pi] && estado.tentou[i][pi]===""){
+      estado.tentou[i][pi]=resp;
+      travou=true;
+      var fb=document.getElementById('fb_'+i+'_'+pi);
+      fb.innerHTML='<div class="aviso-copia">✋ Boa parte da sua resposta está igual ao texto. Tente reescrever com as suas palavras — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto, o que vale é ser SEU.</div>';
+    }
+  });
+  if(travou){salvarEstado();toast('Reescreva as respostas destacadas em amarelo e confira de novo.');return;}
+  b.perguntas.forEach(function(p,pi){
+    estado.conferida[i][pi]=true;
+    var resp=estado.resp[i][pi];
+    var copia=Anticopia.ehCopia(resp,texto,p.enun);
+    estado.transcrita[i][pi]=copia?true:false;
+    mostrarFeedback(i,pi);
+  });
+  atualizaStatus(i);salvarEstado();atualizarBarra();
+  if(perguntasOk(i)){
+    toast('✅ Setor conferido!');
+    if(i+1<BLOCOS.length){setTimeout(function(){render();abrir(i+1);document.getElementById('bloco'+(i+1)).scrollIntoView({behavior:'smooth',block:'start'});toast('🔓 Próximo setor liberado!');},700);}
+  }
+}
+function mostrarFeedback(i,pi){
+  var p=BLOCOS[i].perguntas[pi];
+  var fb=document.getElementById('fb_'+i+'_'+pi);if(!fb)return;
+  var perg=document.getElementById('perg_'+i+'_'+pi);
+  var html='';
+  if(estado.transcrita[i][pi]){
+    perg.classList.add('vermelha');
+    html+='<div class="aviso-vermelho">🔴 Esta resposta ainda está muito parecida com o texto. Ela vale, mas fica marcada para você reescrever com as suas palavras (é só editar aqui em cima que a marca some).</div>';
+  } else { perg.classList.remove('vermelha'); }
+  html+='<div class="modelo"><b>Resposta modelo:</b> '+p.modelo+'</div>';
+  html+='<div class="checklist"><b>Sua resposta disse que...</b>';
+  p.checklist.forEach(function(c,ci){
+    var val=estado.chk[i][pi][ci];
+    html+='<div class="item"><span>'+c+'</span><button class="mini '+(val===true?'on-sim':'')+'" onclick="marcarChk('+i+','+pi+','+ci+',true)">Sim</button><button class="mini '+(val===false?'on-nao':'')+'" onclick="marcarChk('+i+','+pi+','+ci+',false)">Não</button></div>';
+  });
+  html+='</div>';
+  fb.innerHTML=html;
+}
+function marcarChk(i,pi,ci,val){estado.chk[i][pi][ci]=val;mostrarFeedback(i,pi);atualizaStatus(i);salvarEstado();}
+function atualizaStatus(i){
+  var st=document.getElementById('st_'+i);if(!st)return;
+  if(!estado.fixFeita[i]){st.textContent='';return;}
+  if(!perguntasOk(i)){st.innerHTML='<span class="selo-rev">✍️ responda as perguntas</span>';return;}
+  var revisar=false;
+  estado.chk[i].forEach(function(arr){arr.forEach(function(v){if(v===false)revisar=true;});});
+  estado.transcrita[i].forEach(function(t){if(t)revisar=true;});
+  st.innerHTML=revisar?'<span class="selo-rev">🔁 revisar</span>':'<span class="selo-ok">✅ ok</span>';
+}
+function atualizarBarra(){
+  var feitos=0;BLOCOS.forEach(function(b,i){if(estado.fixFeita[i]&&perguntasOk(i))feitos++;});
+  var pct=Math.round(feitos/BLOCOS.length*100);
+  document.getElementById('barra-geral').style.width=pct+'%';
+  document.getElementById('progresso-txt').textContent=feitos+' de '+BLOCOS.length+' setores calibrados';
+  document.getElementById('final').classList.toggle('oculto',feitos!==BLOCOS.length);
+  if(feitos===BLOCOS.length)montarFinal();
+}
+function montarFinal(){
+  document.getElementById('lista-pegadinhas').innerHTML=PEGADINHAS.map(function(p){return '<li>'+p+'</li>';}).join('');
+  document.getElementById('tab-cobertura').innerHTML=BLOCOS.map(function(b){return '<tr><td>'+b.topico+'</td><td>'+b.titulo+'</td></tr>';}).join('');
+  var lr=document.getElementById('lista-revisar');var itens=[];
+  BLOCOS.forEach(function(b,i){
+    var precisa=false;
+    estado.transcrita[i].forEach(function(t){if(t)precisa=true;});
+    estado.chk[i].forEach(function(arr){arr.forEach(function(v){if(v===false)precisa=true;});});
+    if(precisa)itens.push('<li>'+b.titulo+'</li>');
+  });
+  lr.innerHTML=itens.length?'<ul class="limpa">'+itens.join('')+'</ul>':'<p>🎉 Nada marcado para revisar. Mandou bem!</p>';
+}
+function toast(m){var t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111a45;border:1px solid var(--ciano);color:#fff;padding:12px 20px;border-radius:30px;font-weight:700;z-index:400';document.body.appendChild(t);}t.textContent=m;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},2400);}
+function espelharParaRelatorio(){
+  var vermelhas=0,naos=0;
+  estado.transcrita.forEach(function(arr){arr.forEach(function(t){if(t)vermelhas++;});});
+  estado.chk.forEach(function(bl){bl.forEach(function(arr){arr.forEach(function(v){if(v===false)naos++;});});});
+  RELOGIO.extra({vermelhas:vermelhas,checklist_nao:naos});
+}
+RELOGIO.init({key:CHAVE,minutos:45,titulo:"Pronto para calibrar, cadete?"});
+painelSalvar(CHAVE,function(){return estado;},function(){});
+render();
+setInterval(espelharParaRelatorio,5000);
+window.addEventListener('beforeunload',espelharParaRelatorio);
+</script>
+</body>
+</html>
