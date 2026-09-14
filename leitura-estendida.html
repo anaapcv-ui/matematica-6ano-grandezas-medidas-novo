@@ -304,117 +304,242 @@ function painelSalvar(KEY,coletar,aoZerar){
   carimbo();
 }
 var BLOCOS=[
-{icone:"⚙️",titulo:"Setor 1 — MDC: o maior divisor comum",topico:"Cálculo do MDC (problemas)",texto:`<div class="leitura"><p>O <b>MDC</b> (Máximo Divisor Comum) de dois ou mais números é o <b>maior número</b> que divide todos eles ao mesmo tempo, sem deixar resto.</p><div class="destaque">Um jeito seguro de achar o MDC é <b>decompor em fatores primos</b> e multiplicar só os fatores <b>comuns</b>, cada um com o <b>menor expoente</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>MDC de 12 e 18: 12 = 2 × 2 × 3 e 18 = 2 × 3 × 3. Os fatores comuns são um 2 e um 3 → MDC = 2 × 3 = <span class="conta">6</span>.</div><p>O MDC aparece em problemas de <b>repartir em grupos iguais o maior possível</b>: cortar pedaços do mesmo tamanho, formar times iguais, etc.</p><div class="postit">MDC = "o MAIOR que cabe em todos". Serve para dividir em partes iguais o maior possível.</div><div class="pegadinha">Não confunda com o MMC! MDC é o MAIOR divisor comum (geralmente pequeno); MMC é o MENOR múltiplo comum (geralmente maior).</div></div>`,
+{
+ icone:"⚙️", titulo:"Setor 1 — MDC: o maior divisor comum",
+ topico:"Cálculo do MDC (problemas)",
+ texto:`
+  <p>O <b>máximo divisor comum (MDC)</b> de dois ou mais números é o <b>maior número</b> que divide todos eles ao mesmo tempo, sem deixar resto. Um jeito de achar é <b>listar os divisores</b> de cada número e pegar o maior que aparece nos dois.</p>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — divisores de 36 e 48</span>
+   D(36) = {1, 2, 3, 4, 6, 9, 12, 18, 36}<br>
+   D(48) = {1, 2, 3, 4, 6, 8, 12, 16, 24, 48}<br>
+   Os divisores <b>comuns</b> são 1, 2, 3, 4, 6 e 12. O maior deles é o 12 → <span class="conta">MDC(36; 48) = 12</span>.</div>
+  <div class="destaque"><b>Método prático (do livro): decomposição simultânea.</b> Dividimos os dois números ao mesmo tempo, só pelos fatores <b>comuns</b> a ambos:<br>
+   36, 48 | 2 &nbsp;→&nbsp; 18, 24 | 2 &nbsp;→&nbsp; 9, 12 | 3 &nbsp;→&nbsp; 3, 4.<br>
+   Multiplicando os fatores usados: <span class="conta">MDC(36; 48) = 2 × 2 × 3 = 12</span>.</div>
+  <p>O MDC aparece em problemas de <b>repartir em grupos iguais, o maior possível, sem sobrar</b>: cortar pedaços do mesmo tamanho, formar times iguais, montar kits.</p>
+  <div class="postit">MDC = "o MAIOR que divide todos". Serve para dividir em partes iguais o maior possível.</div>
+  <div class="pegadinha">Não confunda com o MMC! MDC é o MAIOR divisor comum (costuma ser um número pequeno); MMC é o MENOR múltiplo comum (costuma ser maior).</div>`,
  fix:[
-  {q:"O MDC de 8 e 12 é:",alts:["2","4","24","6"],correta:1,exp:"8=2·2·2 e 12=2·2·3. Comuns: dois 2 → 2·2=4."},
-  {q:"O MDC serve para resolver problemas de:",alts:["Juntar tudo num total","Repartir em grupos iguais o maior possível","Somar medidas","Comparar decimais"],correta:1,exp:"MDC = maior parte igual em que dá para dividir."},
-  {q:"Numa festa há 24 balas e 36 pirulitos para montar sacolinhas iguais, sem sobrar. O maior nº de sacolinhas é o MDC de 24 e 36, que vale:",alts:["6","12","72","4"],correta:1,exp:"24=2·2·2·3, 36=2·2·3·3. Comuns: 2·2·3=12."}
+  {q:"Pelos divisores, o MDC de 36 e 48 (exemplo do livro) é:", alts:["6","12","4","144"], correta:1, exp:"Divisores comuns de 36 e 48: 1,2,3,4,6,12. O maior é 12."},
+  {q:"O MDC serve para resolver problemas de:", alts:["Juntar tudo num total","Repartir em grupos iguais o maior possível","Somar medidas","Comparar decimais"], correta:1, exp:"MDC = maior parte igual em que dá para dividir sem sobrar."},
+  {q:"Numa festa há 24 balas e 36 pirulitos para montar sacolinhas iguais, sem sobrar. O maior nº de sacolinhas é o MDC de 24 e 36, que vale:", alts:["6","12","72","4"], correta:1, exp:"24=2·2·2·3, 36=2·2·3·3. Fatores comuns: 2·2·3=12."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Com as suas palavras, o que é o MDC de dois números?",modelo:"É o maior número que divide os dois ao mesmo tempo, sem deixar resto.",checklist:["Falei em 'maior número'?","Falei que divide os dois sem sobrar (sem resto)?"]},
-  {tipo:"a",enun:"Invente um problema do dia a dia que se resolve achando o MDC (só o enunciado).",modelo:"Ex.: 'Tenho 18 lápis e 30 canetas para montar kits iguais sem sobrar. Qual o maior nº de kits?'",checklist:["Meu problema pede o MAIOR grupo/parte igual?","Aparecem dois números para dividir sem sobrar?"]},
-  {tipo:"a",enun:"Ache o MDC de 20 e 30 e escreva o passo a passo que você usou.",modelo:"20=2·2·5, 30=2·3·5. Comuns: 2·5=10. MDC=10.",checklist:["Decompus os dois números em fatores primos?","Multipliquei só os fatores comuns e cheguei a 10?"]}
- ]},
-{icone:"🔗",titulo:"Setor 2 — MMC: o menor múltiplo comum",topico:"Cálculo do MMC (problemas)",texto:`<div class="leitura"><p>O <b>MMC</b> (Mínimo Múltiplo Comum) de dois ou mais números é o <b>menor número</b> (diferente de zero) que é múltiplo de todos eles ao mesmo tempo.</p><div class="destaque">Para achar o MMC pela decomposição, multiplicamos <b>todos</b> os fatores primos que aparecem, cada um elevado ao <b>maior expoente</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>MMC de 4 e 6: 4 = 2 × 2 e 6 = 2 × 3. Pegamos 2×2 (o maior) e o 3 → MMC = 2 × 2 × 3 = <span class="conta">12</span>.</div><p>O MMC aparece em problemas de <b>coisas que se repetem e se encontram de novo ao mesmo tempo</b>: dois ônibus que partem juntos, luzes que piscam, voltas numa pista.</p><div class="postit">MMC = "quando os dois se encontram de novo". Serve para eventos que se repetem juntos.</div><div class="pegadinha">No MMC pegamos TODOS os fatores (maior expoente); no MDC só os comuns (menor). Regras diferentes!</div></div>`,
+  {tipo:"c", enun:"Com as suas palavras, o que é o MDC de dois números?", modelo:"É o maior número que divide os dois ao mesmo tempo, sem deixar resto.", checklist:["Falei em 'maior número'?","Falei que divide os dois sem sobrar (sem resto)?"]},
+  {tipo:"a", enun:"Invente um problema do dia a dia que se resolve achando o MDC (não precisa resolver, só criar o enunciado).", modelo:"Ex.: 'Tenho 18 lápis e 30 canetas para montar kits iguais sem sobrar. Qual o maior nº de kits?'", checklist:["Meu problema pede o MAIOR grupo/parte igual?","Aparecem dois números para dividir sem sobrar?"]},
+  {tipo:"a", enun:"Ache o MDC de 20 e 30 e escreva o passo a passo que você usou.", modelo:"20=2·2·5, 30=2·3·5. Comuns: 2·5=10. MDC=10.", checklist:["Decompus os dois números em fatores primos?","Multipliquei só os fatores comuns e cheguei a 10?"]}
+ ]
+},
+{
+ icone:"🔗", titulo:"Setor 2 — MMC: o menor múltiplo comum",
+ topico:"Cálculo do MMC (problemas)",
+ texto:`
+  <p>O <b>mínimo múltiplo comum (MMC)</b> de dois ou mais números é o <b>menor número</b> (diferente de zero) que é múltiplo de todos eles ao mesmo tempo. Dá para achar <b>listando os múltiplos</b> e pegando o menor que aparece nos dois.</p>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — múltiplos de 12 e 18</span>
+   M(12) = 0, 12, 24, <b>36</b>, 48, 60, 72...<br>
+   M(18) = 0, 18, <b>36</b>, 54, 72, 90...<br>
+   O menor múltiplo comum (fora o zero) é o 36 → <span class="conta">MMC(12; 18) = 36</span>.</div>
+  <div class="destaque"><b>Método prático (do livro): decomposição simultânea.</b> Aqui dividimos usando <b>todos</b> os fatores:<br>
+   12, 18 | 2 &nbsp;→&nbsp; 6, 9 | 2 &nbsp;→&nbsp; 3, 9 | 3 &nbsp;→&nbsp; 1, 3 | 3 &nbsp;→&nbsp; 1, 1.<br>
+   <span class="conta">MMC(12; 18) = 2 × 2 × 3 × 3 = 36</span>.</div>
+  <div class="postit">Truque do livro: o <b>MDC × MMC</b> de dois números é igual ao <b>produto</b> deles. Ex.: MDC(30;85)=5 e MMC(30;85)=510 → 5 × 510 = 2 550 = 30 × 85.</div>
+  <p>O MMC aparece em problemas de <b>coisas que se repetem e se encontram de novo ao mesmo tempo</b>: dois ônibus que partem juntos, luzes que piscam, voltas numa pista.</p>
+  <div class="pegadinha">No MMC pegamos TODOS os fatores; no MDC pegamos SÓ os comuns. São regras diferentes!</div>`,
  fix:[
-  {q:"O MMC de 6 e 8 é:",alts:["2","24","48","14"],correta:1,exp:"6=2·3, 8=2·2·2. Maiores: 2·2·2·3=24."},
-  {q:"Dois faróis piscam: um a cada 4s e outro a cada 6s. Piscam juntos de novo a cada:",alts:["10s","2s","12s","24s"],correta:2,exp:"MMC(4,6)=12. A cada 12 segundos."},
-  {q:"O MMC de 3 e 5 é:",alts:["8","15","1","30"],correta:1,exp:"Não têm fator comum: 3·5=15."}
+  {q:"Pelos múltiplos (exemplo do livro), o MMC de 12 e 18 é:", alts:["6","72","36","216"], correta:2, exp:"O menor múltiplo comum de 12 e 18 (fora o zero) é 36."},
+  {q:"Dois faróis piscam: um a cada 4s e outro a cada 6s. Piscam juntos de novo a cada:", alts:["10s","2s","12s","24s"], correta:2, exp:"MMC(4,6)=12. Encontram-se a cada 12 segundos."},
+  {q:"O MDC × MMC de dois números é sempre igual:", alts:["à soma dos números","ao produto (multiplicação) dos números","ao maior número","a 1"], correta:1, exp:"Propriedade do livro: MDC × MMC = produto dos dois números."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Explique, com as suas palavras, a diferença entre MMC e MDC.",modelo:"MMC é o menor múltiplo comum (coisas que se repetem juntas); MDC é o maior divisor comum (repartir em partes iguais).",checklist:["Disse que MMC é o MENOR múltiplo comum?","Disse que MDC é o MAIOR divisor comum?"]},
-  {tipo:"a",enun:"Crie um problema do dia a dia que se resolve com MMC (só o enunciado).",modelo:"Ex.: 'Um ônibus passa a cada 15 min e outro a cada 20 min. De quanto em quanto tempo passam juntos?'",checklist:["Meu problema fala de coisas que se repetem?","A pergunta é quando elas coincidem de novo?"]},
-  {tipo:"a",enun:"Ache o MMC de 9 e 12 mostrando o passo a passo.",modelo:"9=3·3, 12=2·2·3. Maiores: 2·2·3·3=36. MMC=36.",checklist:["Decompus os dois em fatores primos?","Multipliquei todos os fatores com o maior expoente e achei 36?"]}
- ]},
-{icone:"📏",titulo:"Setor 3 — Medidas de comprimento",topico:"Comprimento (transformação de unidades)",texto:`<div class="leitura"><p>A unidade principal de comprimento é o <b>metro (m)</b>. As outras unidades vão de 10 em 10:</p><div class="destaque">km → hm → dam → <b>m</b> → dm → cm → mm.<br>Cada passo para a <b>direita</b>: <b>multiplica por 10</b>. Cada passo para a <b>esquerda</b>: <b>divide por 10</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos cm há em 3 m? Do m ao cm são 2 passos à direita → ×10×10 = ×100 → 3 m = <span class="conta">300 cm</span>.<br>Quantos m há em 250 cm? 2 passos à esquerda → ÷100 → 250 cm = <span class="conta">2,5 m</span>.</div><div class="postit">Comprimento anda de 10 em 10. Conte os degraus e multiplique (ou divida) por 10 a cada degrau.</div><div class="pegadinha">1 km NÃO é 100 m! São 3 degraus até o metro: 1 km = 1000 m.</div></div>`,
+  {tipo:"c", enun:"Explique, com as suas palavras, a diferença entre MMC e MDC.", modelo:"MMC é o menor múltiplo comum (para coisas que se repetem juntas); MDC é o maior divisor comum (para repartir em partes iguais).", checklist:["Disse que MMC é o MENOR múltiplo comum?","Disse que MDC é o MAIOR divisor comum?"]},
+  {tipo:"a", enun:"Crie um problema do dia a dia que se resolve com MMC (só o enunciado).", modelo:"Ex.: 'Um ônibus passa a cada 15 min e outro a cada 20 min. De quanto em quanto tempo passam juntos?'", checklist:["Meu problema fala de coisas que se repetem?","A pergunta é quando elas coincidem de novo?"]},
+  {tipo:"a", enun:"Ache o MMC de 12 e 18 mostrando o passo a passo (pode listar os múltiplos, como no livro).", modelo:"M(12)=0,12,24,36... e M(18)=0,18,36... O menor comum é 36. MMC=36.", checklist:["Listei os múltiplos dos dois números?","Peguei o menor comum e achei 36?"]}
+ ]
+},
+{
+ icone:"📏", titulo:"Setor 3 — Medidas de comprimento",
+ topico:"Comprimento (transformação de unidades)",
+ texto:`
+  <p>A unidade principal de comprimento é o <b>metro (m)</b>. As outras unidades vão de 10 em 10:</p>
+  <div class="destaque">km → hm → dam → <b>m</b> → dm → cm → mm.<br>
+   Cada passo para a <b>direita</b>: <b>multiplica por 10</b>. Cada passo para a <b>esquerda</b>: <b>divide por 10</b>.</div>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — a maratona</span>
+   A maratona tem 42,195 km. Do km ao m são 3 degraus (×1000): 42,195 × 1000 = <span class="conta">42 195 m</span>, ou seja, 42 km e 195 m.<br>
+   E 12 mm em metros? Do mm ao m são 3 degraus à esquerda (÷1000): 12 × 0,001 = <span class="conta">0,012 m</span>.</div>
+  <p class="pequeno">Instrumentos de medir comprimento (do livro): régua, trena, fita métrica, paquímetro (precisão de 0,01 mm) e micrômetro (0,001 mm).</p>
+  <div class="postit">Comprimento anda de 10 em 10. Conte os "degraus" da escada e multiplique (ou divida) por 10 a cada degrau.</div>
+  <div class="pegadinha">1 km NÃO é 100 m! São 3 degraus até o metro: 1 km = 1000 m.</div>`,
  fix:[
-  {q:"5 m equivalem a quantos centímetros?",alts:["50 cm","500 cm","5000 cm","0,05 cm"],correta:1,exp:"Do m ao cm: 2 degraus = ×100 → 500 cm."},
-  {q:"2 km valem, em metros:",alts:["200 m","20 m","2000 m","2 m"],correta:2,exp:"Do km ao m: 3 degraus = ×1000 → 2000 m."},
-  {q:"350 cm em metros é:",alts:["3,5 m","35 m","0,35 m","3500 m"],correta:0,exp:"Do cm ao m: 2 degraus à esquerda = ÷100 → 3,5 m."}
+  {q:"5 m equivalem a quantos centímetros?", alts:["50 cm","500 cm","5000 cm","0,05 cm"], correta:1, exp:"Do m ao cm: 2 degraus à direita = ×100 → 500 cm."},
+  {q:"2 km valem, em metros:", alts:["200 m","20 m","2000 m","2 m"], correta:2, exp:"Do km ao m: 3 degraus à direita = ×1000 → 2000 m."},
+  {q:"350 cm em metros é:", alts:["3,5 m","35 m","0,35 m","3500 m"], correta:0, exp:"Do cm ao m: 2 degraus à esquerda = ÷100 → 3,5 m."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Explique o que acontece com o número quando você troca de uma unidade menor (cm) para uma maior (m).",modelo:"O número fica menor, porque dividimos por 10 a cada degrau para a esquerda.",checklist:["Disse que o número diminui?","Liguei isso a dividir por 10 (ir para a esquerda)?"]},
-  {tipo:"a",enun:"Transforme 4,2 km em metros e mostre a conta.",modelo:"km→m são 3 degraus à direita: 4,2 × 1000 = 4200 m.",checklist:["Contei 3 degraus do km ao m?","Multipliquei por 1000 e achei 4200 m?"]},
-  {tipo:"a",enun:"Uma corrida tem 1 500 m. Escreva isso em quilômetros e diga como pensou.",modelo:"m→km: 3 degraus à esquerda = ÷1000 → 1,5 km.",checklist:["Dividi por 1000?","Cheguei a 1,5 km?"]}
- ]},
-{icone:"⬛",titulo:"Setor 4 — Perímetro de figuras planas",topico:"Perímetro de uma figura plana",texto:`<div class="leitura"><p>O <b>perímetro</b> é a medida do <b>contorno</b> de uma figura: basta <b>somar todos os lados</b>.</p><div class="destaque">Quadrado de lado L: perímetro = 4 × L.<br>Retângulo de lados a e b: perímetro = 2 × a + 2 × b.<br>Qualquer figura: some lado por lado.</div><div class="exemplo"><span class="et">EXEMPLO</span>Retângulo de 5 cm por 3 cm → perímetro = 5 + 3 + 5 + 3 = <span class="conta">16 cm</span>.<br>Quadrado de lado 7 cm → perímetro = 4 × 7 = <span class="conta">28 cm</span>.</div><div class="postit">Perímetro = "dar a volta na figura". Some todos os lados. A resposta fica em cm, m...</div><div class="pegadinha">Perímetro NÃO é área! Perímetro é o contorno (soma dos lados); área é o espaço de dentro (unidades ao quadrado).</div></div>`,
+  {tipo:"c", enun:"Explique, com suas palavras, o que acontece com o número quando você troca de uma unidade menor (cm) para uma maior (m).", modelo:"O número fica menor, porque dividimos por 10 a cada degrau para a esquerda.", checklist:["Disse que o número diminui?","Liguei isso a dividir por 10 (ir para a esquerda)?"]},
+  {tipo:"a", enun:"Transforme 4,2 km em metros e mostre a conta.", modelo:"km→m são 3 degraus à direita: 4,2 × 1000 = 4200 m.", checklist:["Contei 3 degraus do km ao m?","Multipliquei por 1000 e achei 4200 m?"]},
+  {tipo:"a", enun:"Uma corrida tem 1 500 m. Escreva isso em quilômetros e diga como pensou.", modelo:"m→km: 3 degraus à esquerda = ÷1000 → 1,5 km.", checklist:["Dividi por 1000?","Cheguei a 1,5 km?"]}
+ ]
+},
+{
+ icone:"⬛", titulo:"Setor 4 — Perímetro de figuras planas",
+ topico:"Perímetro de uma figura plana",
+ texto:`
+  <p>O <b>perímetro</b> é a medida do <b>contorno</b> de uma figura: basta <b>somar todos os lados</b>.</p>
+  <div class="destaque">Quadrado de lado L: perímetro = 4 × L.<br>
+   Retângulo de lados a e b: perímetro = 2 × a + 2 × b.<br>
+   Qualquer figura: some lado por lado.</div>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — a praça</span>
+   Uma engenheira mediu os lados de uma praça com formato de 5 lados: 28 m, 38 m, 25 m, 38 m e 26 m. Para cercá-la, ela precisa do perímetro:<br>
+   28 + 38 + 25 + 38 + 26 = <span class="conta">155 m</span> de cerca.<br>
+   Retângulo de 5 cm por 3 cm → perímetro = 5 + 3 + 5 + 3 = <span class="conta">16 cm</span>. Quadrado de lado 7 cm → 4 × 7 = <span class="conta">28 cm</span>.</div>
+  <div class="postit">Perímetro = "dar a volta na figura". Some todos os lados. A resposta fica em unidade de comprimento (cm, m...).</div>
+  <div class="pegadinha">Perímetro NÃO é área! Perímetro é o contorno (soma dos lados); área é o espaço de dentro (em unidades ao quadrado).</div>`,
  fix:[
-  {q:"O perímetro de um quadrado de lado 6 cm é:",alts:["12 cm","24 cm","36 cm","6 cm"],correta:1,exp:"4 × 6 = 24 cm."},
-  {q:"Um retângulo tem 8 cm de largura e 5 cm de altura. Seu perímetro é:",alts:["13 cm","26 cm","40 cm","20 cm"],correta:1,exp:"8+5+8+5 = 26 cm."},
-  {q:"O perímetro é medido em:",alts:["Unidades de comprimento (cm, m)","Unidades ao quadrado (cm²)","Litros","Quilogramas"],correta:0,exp:"É um comprimento (o contorno): cm, m, etc."}
+  {q:"O perímetro de um quadrado de lado 6 cm é:", alts:["12 cm","24 cm","36 cm","6 cm"], correta:1, exp:"4 × 6 = 24 cm."},
+  {q:"Um retângulo tem 8 cm de largura e 5 cm de altura. Seu perímetro é:", alts:["13 cm","26 cm","40 cm","20 cm"], correta:1, exp:"8+5+8+5 = 26 cm (ou 2·8+2·5)."},
+  {q:"O perímetro é medido em:", alts:["Unidades de comprimento (cm, m)","Unidades ao quadrado (cm²)","Litros","Quilogramas"], correta:0, exp:"É um comprimento (o contorno), então cm, m, etc."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Explique, com as suas palavras, o que é o perímetro de uma figura.",modelo:"É a soma de todos os lados, ou seja, a medida do contorno da figura.",checklist:["Falei em somar os lados / contorno?","Deixei claro que é a volta por fora?"]},
-  {tipo:"a",enun:"Um triângulo tem lados 4 cm, 6 cm e 9 cm. Calcule o perímetro mostrando a conta.",modelo:"4 + 6 + 9 = 19 cm.",checklist:["Somei os três lados?","Cheguei a 19 cm (com a unidade)?"]},
-  {tipo:"a",enun:"Um jardim quadrado tem 12 m de perímetro. Quanto mede cada lado? Explique.",modelo:"12 ÷ 4 = 3 m (o quadrado tem 4 lados iguais).",checklist:["Usei que o quadrado tem 4 lados iguais?","Dividi 12 por 4 e achei 3 m?"]}
- ]},
-{icone:"🟩",titulo:"Setor 5 — Medidas de área",topico:"Área (transformação de unidades)",texto:`<div class="leitura"><p><b>Área</b> é a medida da <b>superfície</b> (o espaço de dentro). A unidade principal é o <b>metro quadrado (m²)</b>. Como é "ao quadrado", a escada anda de <b>100 em 100</b>.</p><div class="destaque">km² → hm² → dam² → <b>m²</b> → dm² → cm² → mm².<br>Cada degrau para a direita: <b>×100</b>. Para a esquerda: <b>÷100</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Área do retângulo = base × altura. Um retângulo de 5 m por 3 m tem área 5 × 3 = <span class="conta">15 m²</span>.<br>Quantos cm² há em 2 m²? 2 degraus → ×10000 → 2 m² = <span class="conta">20000 cm²</span>.</div><div class="postit">Área anda de 100 em 100 (é "ao quadrado"). Comprimento 10; área 100.</div><div class="pegadinha">1 m² NÃO é 100 cm²! É 10 000 cm² (×100 por degrau, 2 degraus).</div></div>`,
+  {tipo:"c", enun:"Explique, com suas palavras, o que é o perímetro de uma figura.", modelo:"É a soma de todos os lados, ou seja, a medida do contorno da figura.", checklist:["Falei em somar os lados / contorno?","Deixei claro que é a volta por fora da figura?"]},
+  {tipo:"a", enun:"Desenhe (na sua cabeça) um triângulo de lados 4 cm, 6 cm e 9 cm e calcule o perímetro, mostrando a conta.", modelo:"4 + 6 + 9 = 19 cm.", checklist:["Somei os três lados?","Cheguei a 19 cm (com a unidade cm)?"]},
+  {tipo:"a", enun:"Um jardim quadrado tem 12 m de perímetro. Quanto mede cada lado? Explique como descobriu.", modelo:"12 ÷ 4 = 3 m em cada lado (perímetro do quadrado é 4 × lado).", checklist:["Usei que o quadrado tem 4 lados iguais?","Dividi 12 por 4 e achei 3 m?"]}
+ ]
+},
+{
+ icone:"🟩", titulo:"Setor 5 — Medidas de área",
+ topico:"Área (transformação de unidades)",
+ texto:`
+  <p><b>Área</b> é a medida da <b>superfície</b> (o espaço de dentro). A unidade principal é o <b>metro quadrado (m²)</b>. Como é "ao quadrado", a escada anda de <b>100 em 100</b>.</p>
+  <div class="destaque">km² → hm² → dam² → <b>m²</b> → dm² → cm² → mm².<br>
+   Cada degrau para a direita: <b>×100</b>. Para a esquerda: <b>÷100</b>.</div>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — o Vaticano</span>
+   O Vaticano, o menor país do mundo, tem 0,44 km². Do km² ao m² são 3 degraus (×100 cada = ×1 000 000): 0,44 × 1 000 000 = <span class="conta">440 000 m²</span>. Como um campo de futebol tem 7 140 m², caberiam 440 000 ÷ 7 140 ≈ 61 campos!<br>
+   Área do retângulo = base × altura: um retângulo de 5 m por 3 m tem 5 × 3 = <span class="conta">15 m²</span>.</div>
+  <p class="pequeno">Unidades agrárias do livro: o <b>hectare (ha)</b> = 1 hm² = 10 000 m²; o alqueire paulista = 24 200 m².</p>
+  <div class="postit">Área anda de 100 em 100 (é "ao quadrado"). Comprimento anda de 10 em 10; área, de 100 em 100.</div>
+  <div class="pegadinha">1 m² NÃO é 100 cm²! É 10 000 cm² (porque é ×100 por degrau, e são 2 degraus).</div>`,
  fix:[
-  {q:"A área de um quadrado de lado 4 m é:",alts:["8 m²","16 m²","16 m","12 m²"],correta:1,exp:"lado × lado = 4 × 4 = 16 m²."},
-  {q:"1 m² equivale a quantos cm²?",alts:["100 cm²","1000 cm²","10000 cm²","10 cm²"],correta:2,exp:"Área de 100 em 100; 2 degraus = ×10000."},
-  {q:"A área é medida em:",alts:["cm, m","cm², m²","cm³","litros"],correta:1,exp:"Unidades ao quadrado: cm², m²..."}
+  {q:"A área de um quadrado de lado 4 m é:", alts:["8 m²","16 m²","16 m","12 m²"], correta:1, exp:"Área do quadrado = lado × lado = 4 × 4 = 16 m²."},
+  {q:"1 m² equivale a quantos cm²?", alts:["100 cm²","1000 cm²","10000 cm²","10 cm²"], correta:2, exp:"Área anda de 100 em 100; do m² ao cm² são 2 degraus = ×10000."},
+  {q:"A área é medida em:", alts:["cm, m","cm², m²","cm³","litros"], correta:1, exp:"Área usa unidades ao quadrado: cm², m²..."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Por que a escada da área anda de 100 em 100, e não de 10 em 10?",modelo:"Porque a área é 'ao quadrado': cada degrau vale 10 × 10 = 100.",checklist:["Liguei o 100 a ser 'ao quadrado' (10×10)?","Diferenciei do comprimento (10 em 10)?"]},
-  {tipo:"a",enun:"Calcule a área de um retângulo de 7 cm por 4 cm e mostre a conta.",modelo:"base × altura = 7 × 4 = 28 cm².",checklist:["Multipliquei base por altura?","Usei a unidade cm² (ao quadrado)?"]},
-  {tipo:"a",enun:"Transforme 3 m² em cm² e explique o caminho.",modelo:"2 degraus à direita = ×10000 → 3 × 10000 = 30000 cm².",checklist:["Usei ×100 por degrau (2 degraus = ×10000)?","Cheguei a 30000 cm²?"]}
- ]},
-{icone:"🧊",titulo:"Setor 6 — Medidas de volume",topico:"Volume (transformação de unidades)",texto:`<div class="leitura"><p><b>Volume</b> é o espaço que um objeto ocupa. A unidade principal é o <b>metro cúbico (m³)</b>. Como é "ao cubo", a escada anda de <b>1000 em 1000</b>.</p><div class="destaque">km³ → hm³ → dam³ → <b>m³</b> → dm³ → cm³ → mm³.<br>Cada degrau para a direita: <b>×1000</b>. Para a esquerda: <b>÷1000</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Volume do bloco = comprimento × largura × altura. Uma caixa de 2 m × 1 m × 3 m tem volume 2 × 1 × 3 = <span class="conta">6 m³</span>.<br>Quantos cm³ há em 1 m³? 1 m³ = <span class="conta">1 000 000 cm³</span>.</div><div class="postit">Volume anda de 1000 em 1000 (é "ao cubo"). Comprimento 10, área 100, volume 1000.</div><div class="pegadinha">Cuidado com as três escadas! 10, 100 e 1000. Trocar uma pela outra é erro clássico.</div></div>`,
+  {tipo:"c", enun:"Por que a escada da área anda de 100 em 100, e não de 10 em 10? Explique com suas palavras.", modelo:"Porque a área é 'ao quadrado': cada degrau vale 10 × 10 = 100.", checklist:["Liguei o 100 a ser 'ao quadrado' (10×10)?","Diferenciei do comprimento, que anda de 10 em 10?"]},
+  {tipo:"a", enun:"Calcule a área de um retângulo de 7 cm por 4 cm e mostre a conta.", modelo:"Área = base × altura = 7 × 4 = 28 cm².", checklist:["Multipliquei base por altura?","Coloquei a unidade cm² (ao quadrado)?"]},
+  {tipo:"a", enun:"Transforme 3 m² em cm² e explique o caminho.", modelo:"m²→cm² são 2 degraus à direita = ×10000 → 3 × 10000 = 30000 cm².", checklist:["Usei ×100 por degrau (2 degraus = ×10000)?","Cheguei a 30000 cm²?"]}
+ ]
+},
+{
+ icone:"🧊", titulo:"Setor 6 — Medidas de volume",
+ topico:"Volume (transformação de unidades)",
+ texto:`
+  <p><b>Volume</b> é o espaço que um objeto ocupa. A unidade principal é o <b>metro cúbico (m³)</b>. Como é "ao cubo", a escada anda de <b>1000 em 1000</b>.</p>
+  <div class="destaque">km³ → hm³ → dam³ → <b>m³</b> → dm³ → cm³ → mm³.<br>
+   Cada degrau para a direita: <b>×1000</b>. Para a esquerda: <b>÷1000</b>.</div>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — a piscina</span>
+   Uma piscina tem 80 m³ de volume. Em litros? Do m³ ao dm³ é 1 degrau (×1000): 80 × 1000 = <span class="conta">80 000 dm³</span>. E como <b>1 dm³ = 1 L</b>, a piscina comporta <span class="conta">80 000 litros</span>.<br>
+   Volume do bloco = comprimento × largura × altura: uma caixa de 2 m × 1 m × 3 m tem 2 × 1 × 3 = <span class="conta">6 m³</span>.</div>
+  <div class="destaque">Ligação do livro entre volume e capacidade: <b>1 000 cm³ = 1 dm³ = 1 L = 1 000 mL</b> (e 1 cm³ = 1 mL).</div>
+  <div class="postit">Volume anda de 1000 em 1000 (é "ao cubo"). Guarde a escada: comprimento 10, área 100, volume 1000.</div>
+  <div class="pegadinha">Cuidado com as três escadas! 10 (comprimento), 100 (área), 1000 (volume). Trocar uma pela outra é erro clássico.</div>`,
  fix:[
-  {q:"O volume de um cubo de aresta 2 cm é:",alts:["6 cm³","8 cm³","4 cm³","8 cm²"],correta:1,exp:"aresta × aresta × aresta = 2 × 2 × 2 = 8 cm³."},
-  {q:"1 m³ equivale a quantos dm³?",alts:["10 dm³","100 dm³","1000 dm³","1 dm³"],correta:2,exp:"Volume de 1000 em 1000: 1 m³ = 1000 dm³."},
-  {q:"A escada do volume anda de:",alts:["10 em 10","100 em 100","1000 em 1000","2 em 2"],correta:2,exp:"Por ser 'ao cubo', cada degrau é ×1000."}
+  {q:"O volume de um cubo de aresta 2 cm é:", alts:["6 cm³","8 cm³","4 cm³","8 cm²"], correta:1, exp:"Cubo: aresta × aresta × aresta = 2 × 2 × 2 = 8 cm³."},
+  {q:"1 m³ equivale a quantos dm³?", alts:["10 dm³","100 dm³","1000 dm³","1 dm³"], correta:2, exp:"Volume anda de 1000 em 1000: 1 m³ = 1000 dm³."},
+  {q:"A escada do volume anda de:", alts:["10 em 10","100 em 100","1000 em 1000","2 em 2"], correta:2, exp:"Por ser 'ao cubo', cada degrau é ×1000."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Com as suas palavras, o que é o volume de um objeto?",modelo:"É a medida do espaço que o objeto ocupa, em unidades ao cubo (cm³, m³).",checklist:["Falei em 'espaço que ocupa'?","Lembrei que a unidade é ao cubo?"]},
-  {tipo:"a",enun:"Calcule o volume de uma caixa de 3 cm × 4 cm × 5 cm e mostre a conta.",modelo:"3 × 4 × 5 = 60 cm³.",checklist:["Multipliquei as três medidas?","Usei a unidade cm³?"]},
-  {tipo:"a",enun:"Transforme 2 m³ em dm³ e explique.",modelo:"m³→dm³ é 1 degrau = ×1000 → 2 × 1000 = 2000 dm³.",checklist:["Usei ×1000 por degrau?","Cheguei a 2000 dm³?"]}
- ]},
-{icone:"💧",titulo:"Setor 7 — Medidas de capacidade",topico:"Capacidade (transformação de unidades)",texto:`<div class="leitura"><p><b>Capacidade</b> é quanto um recipiente comporta de líquido. A unidade principal é o <b>litro (L)</b>, e a escada anda de <b>10 em 10</b> (como o comprimento):</p><div class="destaque">kL → hL → daL → <b>L</b> → dL → cL → mL.<br>Direita: ×10 por degrau. Esquerda: ÷10 por degrau.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos mL há em 2 L? Do L ao mL são 3 degraus → ×1000 → 2 L = <span class="conta">2000 mL</span>.<br>Ligação importante: <b>1 L = 1 dm³</b> e <b>1 mL = 1 cm³</b>.</div><div class="postit">Capacidade anda de 10 em 10, igual ao comprimento. E 1 litro = 1 dm³.</div><div class="pegadinha">1 L = 1000 mL (não 100 mL!). São 3 degraus do litro ao mililitro.</div></div>`,
+  {tipo:"c", enun:"Com suas palavras, o que é o volume de um objeto?", modelo:"É a medida do espaço que o objeto ocupa, em unidades ao cubo (cm³, m³).", checklist:["Falei em 'espaço que ocupa'?","Lembrei que a unidade é ao cubo (m³, cm³)?"]},
+  {tipo:"a", enun:"Calcule o volume de uma caixa de 3 cm × 4 cm × 5 cm e mostre a conta.", modelo:"3 × 4 × 5 = 60 cm³.", checklist:["Multipliquei as três medidas?","Coloquei a unidade cm³?"]},
+  {tipo:"a", enun:"Transforme 2 m³ em dm³ e explique.", modelo:"m³→dm³ é 1 degrau à direita = ×1000 → 2 × 1000 = 2000 dm³.", checklist:["Usei ×1000 por degrau?","Cheguei a 2000 dm³?"]}
+ ]
+},
+{
+ icone:"💧", titulo:"Setor 7 — Medidas de capacidade",
+ topico:"Capacidade (transformação de unidades)",
+ texto:`
+  <p><b>Capacidade</b> é quanto um recipiente comporta de líquido. A unidade principal é o <b>litro (L)</b>, e a escada anda de <b>10 em 10</b> (como o comprimento):</p>
+  <div class="destaque">kL → hL → daL → <b>L</b> → dL → cL → mL.<br>
+   Direita: ×10 por degrau. Esquerda: ÷10 por degrau.</div>
+  <p class="pequeno">No livro: <b>volume</b> é o espaço que o objeto ocupa; <b>capacidade</b> é o quanto cabe dentro dele (o volume interno).</p>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — o aquário</span>
+   Se são necessárias <b>56 garrafas de 1 L</b>, cheias, para encher um aquário, então o aquário tem capacidade de <span class="conta">56 litros</span>.<br>
+   Quantos mL há em 2 L? Do L ao mL são 3 degraus (×1000): 2 L = <span class="conta">2 000 mL</span>. Ligação importante: <b>1 L = 1 dm³</b> e <b>1 mL = 1 cm³</b>.</div>
+  <div class="postit">Capacidade anda de 10 em 10, igual ao comprimento. E lembre: 1 litro é o mesmo que 1 dm³.</div>
+  <div class="pegadinha">1 L = 1000 mL (não 100 mL!). São 3 degraus do litro até o mililitro.</div>`,
  fix:[
-  {q:"3 L equivalem a quantos mL?",alts:["300 mL","30 mL","3000 mL","3 mL"],correta:2,exp:"L→mL são 3 degraus = ×1000 → 3000 mL."},
-  {q:"1 litro é o mesmo que:",alts:["1 cm³","1 dm³","1 m³","1 mL"],correta:1,exp:"1 L = 1 dm³ (e 1 mL = 1 cm³)."},
-  {q:"500 mL em litros é:",alts:["5 L","0,5 L","50 L","0,05 L"],correta:1,exp:"mL→L são 3 degraus à esquerda = ÷1000 → 0,5 L."}
+  {q:"3 L equivalem a quantos mL?", alts:["300 mL","30 mL","3000 mL","3 mL"], correta:2, exp:"L→mL são 3 degraus à direita = ×1000 → 3000 mL."},
+  {q:"1 litro é o mesmo que:", alts:["1 cm³","1 dm³","1 m³","1 mL"], correta:1, exp:"1 L = 1 dm³ (e 1 mL = 1 cm³)."},
+  {q:"500 mL em litros é:", alts:["5 L","0,5 L","50 L","0,05 L"], correta:1, exp:"mL→L são 3 degraus à esquerda = ÷1000 → 0,5 L."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Explique o que a capacidade de um recipiente mede.",modelo:"Mede quanto de líquido cabe dentro dele, em litros ou mililitros.",checklist:["Falei em 'quanto líquido cabe'?","Citei litro/mililitro?"]},
-  {tipo:"a",enun:"Uma garrafa tem 1,5 L. Quantos mL são? Mostre a conta.",modelo:"L→mL = ×1000 → 1,5 × 1000 = 1500 mL.",checklist:["Multipliquei por 1000?","Achei 1500 mL?"]},
-  {tipo:"a",enun:"Um aquário cúbico tem 8 dm³ de volume. Quantos litros de água ele comporta? Explique a ligação.",modelo:"1 dm³ = 1 L, então 8 dm³ = 8 L.",checklist:["Usei que 1 dm³ = 1 L?","Concluí que são 8 litros?"]}
- ]},
-{icone:"⚖️",titulo:"Setor 8 — Medidas de massa",topico:"Massa (transformação de unidades)",texto:`<div class="leitura"><p><b>Massa</b> é a quantidade de matéria de um objeto (no dia a dia dizemos "peso"). A unidade principal é o <b>grama (g)</b>, e a escada anda de <b>10 em 10</b>:</p><div class="destaque">kg → hg → dag → <b>g</b> → dg → cg → mg.<br>Direita: ×10 por degrau. Esquerda: ÷10 por degrau.<br>Unidade grande extra: <b>1 tonelada (t) = 1000 kg</b>.</div><div class="exemplo"><span class="et">EXEMPLO</span>Quantos g há em 2 kg? Do kg ao g são 3 degraus → ×1000 → 2 kg = <span class="conta">2000 g</span>.<br>Quantos kg há em 3 t? 3 × 1000 = <span class="conta">3000 kg</span>.</div><div class="postit">Massa anda de 10 em 10. 1 kg = 1000 g e 1 t = 1000 kg.</div><div class="pegadinha">1 kg = 1000 g (não 100 g!). E 1 t são 1000 kg.</div></div>`,
+  {tipo:"c", enun:"Explique, com suas palavras, o que a capacidade de um recipiente mede.", modelo:"Mede quanto de líquido cabe dentro dele, geralmente em litros ou mililitros.", checklist:["Falei em 'quanto líquido cabe'?","Citei litro/mililitro como unidade?"]},
+  {tipo:"a", enun:"Uma garrafa tem 1,5 L. Quantos mL são? Mostre a conta.", modelo:"L→mL = ×1000 → 1,5 × 1000 = 1500 mL.", checklist:["Multipliquei por 1000?","Achei 1500 mL?"]},
+  {tipo:"a", enun:"Um aquário cúbico tem 8 dm³ de volume. Quantos litros de água ele comporta? Explique a ligação que usou.", modelo:"1 dm³ = 1 L, então 8 dm³ = 8 L.", checklist:["Usei que 1 dm³ = 1 L?","Concluí que são 8 litros?"]}
+ ]
+},
+{
+ icone:"⚖️", titulo:"Setor 8 — Medidas de massa",
+ topico:"Massa (transformação de unidades)",
+ texto:`
+  <p><b>Massa</b> é a quantidade de matéria de um objeto (no dia a dia dizemos "peso"). A unidade principal é o <b>grama (g)</b>, e a escada anda de <b>10 em 10</b>:</p>
+  <div class="destaque">kg → hg → dag → <b>g</b> → dg → cg → mg.<br>
+   Direita: ×10 por degrau. Esquerda: ÷10 por degrau.<br>
+   Unidade grande extra: <b>1 tonelada (t) = 1000 kg</b>.</div>
+  <div class="exemplo"><span class="et">EXEMPLO DO LIVRO — o padeiro Maurício</span>
+   Maurício compra sacos de farinha de 20 kg. Quantos gramas tem um saco? Do kg ao g são 3 degraus (×1000): 20 × 1000 = <span class="conta">20 000 g</span>. Como ele precisa de 80 000 g na semana, um saco não basta — ele precisa de 4 sacos.<br>
+   E 3 t em kg? 1 t = 1000 kg → 3 × 1000 = <span class="conta">3 000 kg</span>.</div>
+  <p class="pequeno">Atenção do livro: <b>massa</b> (a quantidade de matéria) é diferente de <b>peso</b> — o peso depende da gravidade, por isso na Lua o peso muda mas a massa não. Outras unidades: 1 t = 1000 kg; 1 arroba = 15 kg.</p>
+  <div class="postit">Massa anda de 10 em 10. E guarde: 1 kg = 1000 g e 1 t = 1000 kg.</div>
+  <div class="pegadinha">1 kg = 1000 g (não 100 g!). E não misture tonelada com kg: 1 t são 1000 kg.</div>`,
  fix:[
-  {q:"5 kg equivalem a quantos gramas?",alts:["500 g","5000 g","50 g","50000 g"],correta:1,exp:"kg→g são 3 degraus = ×1000 → 5000 g."},
-  {q:"2 500 g em quilogramas é:",alts:["25 kg","2,5 kg","250 kg","0,25 kg"],correta:1,exp:"g→kg = ÷1000 → 2,5 kg."},
-  {q:"1 tonelada é igual a:",alts:["100 kg","10 kg","1000 kg","1 kg"],correta:2,exp:"1 t = 1000 kg."}
+  {q:"5 kg equivalem a quantos gramas?", alts:["500 g","5000 g","50 g","50000 g"], correta:1, exp:"kg→g são 3 degraus à direita = ×1000 → 5000 g."},
+  {q:"2 500 g em quilogramas é:", alts:["25 kg","2,5 kg","250 kg","0,25 kg"], correta:1, exp:"g→kg = ÷1000 → 2,5 kg."},
+  {q:"1 tonelada é igual a:", alts:["100 kg","10 kg","1000 kg","1 kg"], correta:2, exp:"1 t = 1000 kg."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Com as suas palavras, quantos gramas tem 1 quilograma, e por quê?",modelo:"1 kg = 1000 g, porque do kg ao g são 3 degraus de ×10 (=×1000).",checklist:["Disse que 1 kg = 1000 g?","Expliquei os 3 degraus de ×10?"]},
-  {tipo:"a",enun:"Transforme 4 kg em gramas e mostre a conta.",modelo:"4 × 1000 = 4000 g.",checklist:["Multipliquei por 1000?","Cheguei a 4000 g?"]},
-  {tipo:"a",enun:"Um caminhão carrega 2,5 t. Quantos quilogramas são? Explique.",modelo:"1 t = 1000 kg → 2,5 × 1000 = 2500 kg.",checklist:["Usei 1 t = 1000 kg?","Achei 2500 kg?"]}
- ]},
-{icone:"🌡️",titulo:"Setor 9 — Medidas de temperatura",topico:"Temperatura",texto:`<div class="leitura"><p><b>Temperatura</b> mede o quão quente ou frio algo está. No Brasil usamos a escala <b>Celsius (°C)</b>. Nela, a água <b>congela a 0 °C</b> e <b>ferve a 100 °C</b>.</p><div class="destaque">Para ler um termômetro, veja em que número o líquido parou. A <b>variação</b> de temperatura é a diferença entre duas medidas: temperatura final − temperatura inicial.</div><div class="exemplo"><span class="et">EXEMPLO</span>De manhã fazia 18 °C e à tarde 27 °C. A variação foi 27 − 18 = <span class="conta">9 °C</span> (subiu 9 graus).<br>Existem outras escalas, como <b>Fahrenheit (°F)</b> e <b>Kelvin (K)</b>, mas na sua prova o foco é o Celsius.</div><div class="postit">Água: congela a 0 °C, ferve a 100 °C. Variação = final menos inicial.</div><div class="pegadinha">Temperaturas abaixo de zero são negativas (ex.: −3 °C). De −2 °C para 5 °C a variação é 5 − (−2) = 7 °C, não 3!</div></div>`,
+  {tipo:"c", enun:"Com suas palavras, quantos gramas tem 1 quilograma, e por quê?", modelo:"1 kg = 1000 g, porque do kg ao g são 3 degraus de ×10 (=×1000).", checklist:["Disse que 1 kg = 1000 g?","Expliquei que são 3 degraus de ×10?"]},
+  {tipo:"a", enun:"Transforme 4 kg em gramas e mostre a conta.", modelo:"4 × 1000 = 4000 g.", checklist:["Multipliquei por 1000?","Cheguei a 4000 g?"]},
+  {tipo:"a", enun:"Um caminhão carrega 2,5 t. Quantos quilogramas são? Explique.", modelo:"1 t = 1000 kg → 2,5 × 1000 = 2500 kg.", checklist:["Usei 1 t = 1000 kg?","Achei 2500 kg?"]}
+ ]
+},
+{
+ icone:"🌡️", titulo:"Setor 9 — Medidas de temperatura",
+ topico:"Temperatura",
+ texto:`
+  <p><b>Temperatura</b> mede o quão quente ou frio algo está. No Brasil usamos a escala <b>Celsius (°C)</b>; alguns países usam <b>Fahrenheit (°F)</b>; e a <b>Kelvin (K)</b> é usada na física, química e engenharia. Cada escala leva o nome do cientista que a criou (Celsius, Fahrenheit e Lord Kelvin).</p>
+  <div class="destaque"><b>Conversões do livro:</b><br>
+   • De Celsius para Fahrenheit: <span class="conta">F = 1,8 × C + 32</span><br>
+   • De Celsius para Kelvin: <span class="conta">K = C + 273</span></div>
+  <div class="exemplo"><span class="et">EXEMPLOS DO LIVRO</span>
+   25 °C em °F: F = 1,8 × 25 + 32 = 45 + 32 = <span class="conta">77 °F</span>.<br>
+   59 °F em °C: 59 = 1,8 × C + 32 → 1,8 × C = 27 → C = 27 ÷ 1,8 = <span class="conta">15 °C</span>.<br>
+   57 °C em K: K = 57 + 273 = <span class="conta">330 K</span>.</div>
+  <div class="postit">Água (em Celsius): congela a 0 °C, ferve a 100 °C. Para Kelvin é só somar 273; para Fahrenheit, multiplique por 1,8 e some 32.</div>
+  <div class="pegadinha">Não troque as fórmulas! Fahrenheit usa "× 1,8 e + 32"; Kelvin usa só "+ 273".</div>`,
  fix:[
-  {q:"Na escala Celsius, a água ferve a:",alts:["0 °C","50 °C","100 °C","37 °C"],correta:2,exp:"Ferve a 100 °C e congela a 0 °C."},
-  {q:"A temperatura passou de 15 °C para 22 °C. A variação foi de:",alts:["7 °C","37 °C","5 °C","8 °C"],correta:0,exp:"22 − 15 = 7 °C."},
-  {q:"De −4 °C para 3 °C, a temperatura variou:",alts:["1 °C","−1 °C","7 °C","3 °C"],correta:2,exp:"3 − (−4) = 3 + 4 = 7 °C."}
+  {q:"Transformando 25 °C em Fahrenheit (F = 1,8 × C + 32):", alts:["57 °F","77 °F","45 °F","25 °F"], correta:1, exp:"1,8 × 25 + 32 = 45 + 32 = 77 °F."},
+  {q:"Transformando 57 °C em Kelvin (K = C + 273):", alts:["330 K","273 K","57 K","216 K"], correta:0, exp:"K = 57 + 273 = 330 K."},
+  {q:"Na escala Celsius, a água ferve a:", alts:["0 °C","50 °C","100 °C","37 °C"], correta:2, exp:"A água ferve a 100 °C e congela a 0 °C (ao nível do mar)."}
  ],
  perguntas:[
-  {tipo:"c",enun:"Com as suas palavras, o que quer dizer 'variação de temperatura'?",modelo:"É a diferença entre a temperatura final e a inicial (quanto subiu ou desceu).",checklist:["Falei em diferença entre duas temperaturas?","Deixei claro que é final menos inicial?"]},
-  {tipo:"a",enun:"De madrugada marcava 12 °C e ao meio-dia 29 °C. Calcule a variação e mostre a conta.",modelo:"29 − 12 = 17 °C (subiu 17 graus).",checklist:["Fiz final menos inicial (29 − 12)?","Cheguei a 17 °C?"]},
-  {tipo:"a",enun:"Num freezer estava −5 °C e depois foi para 2 °C. Qual foi a variação? Explique o cuidado com o negativo.",modelo:"2 − (−5) = 2 + 5 = 7 °C. Subtrair um negativo vira somar.",checklist:["Percebi que subtrair (−5) vira somar 5?","Cheguei a 7 °C?"]}
- ]}
+  {tipo:"c", enun:"Com suas palavras, qual a diferença entre transformar Celsius em Kelvin e Celsius em Fahrenheit?", modelo:"Para Kelvin só somo 273; para Fahrenheit multiplico por 1,8 e depois somo 32.", checklist:["Disse que Kelvin é só somar 273?","Disse que Fahrenheit é ×1,8 e +32?"]},
+  {tipo:"a", enun:"Transforme 20 °C em graus Fahrenheit, mostrando a conta (F = 1,8 × C + 32).", modelo:"F = 1,8 × 20 + 32 = 36 + 32 = 68 °F.", checklist:["Multipliquei 20 por 1,8 (=36)?","Somei 32 e cheguei a 68 °F?"]},
+  {tipo:"a", enun:"Transforme 0 °C em Kelvin e explique como pensou.", modelo:"K = C + 273 → 0 + 273 = 273 K.", checklist:["Usei K = C + 273?","Cheguei a 273 K?"]}
+ ]
+}
 ];
+
 var PEGADINHAS=[
  "MDC é o MAIOR divisor comum; MMC é o MENOR múltiplo comum. Não troque um pelo outro.",
  "No MDC pegamos só os fatores COMUNS (menor expoente); no MMC, TODOS os fatores (maior expoente).",
- "As três escadas: comprimento de 10 em 10; área de 100 em 100; volume de 1000 em 1000.",
- "1 km = 1000 m (3 degraus até o metro), não 100 m.",
+ "As três escadas: comprimento anda de 10 em 10; área, de 100 em 100; volume, de 1000 em 1000.",
+ "1 km = 1000 m (são 3 degraus até o metro), não 100 m.",
  "1 m² = 10 000 cm² (não 100 cm²), porque a área é ×100 por degrau.",
  "Perímetro é o contorno (soma dos lados, em cm/m); área é o espaço de dentro (em cm²/m²).",
  "1 L = 1000 mL, e 1 L = 1 dm³ (1 mL = 1 cm³).",
- "1 kg = 1000 g e 1 tonelada = 1000 kg.",
- "Variação de temperatura = final − inicial.",
- "Com negativos: de −2 °C a 5 °C a variação é 7 °C (5 − (−2)), não 3 °C."
+ "1 kg = 1000 g e 1 tonelada = 1000 kg (e 1 arroba = 15 kg).",
+ "Celsius → Fahrenheit: F = 1,8 × C + 32 (ex.: 25 °C = 77 °F).",
+ "Celsius → Kelvin: K = C + 273 (ex.: 57 °C = 330 K). Não troque as duas fórmulas!"
 ];
 var CHAVE='kit_mat6_sj_grandezas_leitura_v1';
 var estado=Store.getJSON(CHAVE,null)||{
